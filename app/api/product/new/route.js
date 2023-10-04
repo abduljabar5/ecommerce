@@ -13,7 +13,7 @@ export const POST = async (req, res) => {
             desc: products.description,
             image: products.imageUrl,
             price: products.price,
-            discount: products.salePrice
+            discount: products.salePrice,
         })
         await newProduct.save();
 

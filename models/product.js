@@ -21,7 +21,7 @@ const promptSchema = new Schema({
         type: Number,
         require: [true, 'Price is requires.'],
     },
-    descount: {
+    discount: {
         type: Number,
     }
 });

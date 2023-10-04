@@ -29,12 +29,13 @@ import {
   ChevronDownIcon,
   CubeTransparentIcon,
 } from "@heroicons/react/24/outline";
- 
+ import { useSession } from "next-auth/react";
 export default function SidebarWithLogo() {
     const [open, setOpen] = React.useState(0);
     const [openAlert, setOpenAlert] = React.useState(true);
     const [isSidebarOpen, setIsSidebarOpen] = React.useState(false); // sidebar closed by default for mobile view
-    
+    const { data: session } = useSession();
+
     const handleOpen = (value) => {
       setOpen(open === value ? 0 : value);
     };
@@ -46,7 +47,7 @@ export default function SidebarWithLogo() {
     <> <div className={`fixed top-0 left-0 h-full w-64 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static`}>
     <Card className="h-screen w-full p-4 mt-16 shadow-xl bg-gray-900 shadow-blue-gray-900/5 lg:mt-0">
         <div className="mb-2 flex items-center gap-4 p-4">
-            <img src="/img/logo-ct-dark.png" alt="brand" className="h-8 w-8" />
+            <img src={session?.user?.image} alt="brand" className="h-12 w-12 rounded-full" />
             <Typography variant="h5" className="text-gray-300">
                 Admin
             </Typography>

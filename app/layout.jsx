@@ -1,5 +1,5 @@
 import '@styles/globals.css';
-
+import { Toaster } from 'sonner';
 import Nav from '@components/Nav';
 import Provider from '@components/Provider';
 export const metadata = {
@@ -18,6 +18,7 @@ const Rootlayout = ({ children }) => {
 
         <main className='app'>
             <Nav />
+            <Toaster />
             {children} 
 
         </main>

@@ -14,10 +14,10 @@ export default function DialogDefault({ handleOpen, open }) {
       {/* <Button onClick={handleOpen} variant="gradient">
         Open Dialog
       </Button> */}
-      <Dialog open={open} handler={handleOpen}>
+      <Dialog open={open} handleOpen={handleOpen}>
         <DialogHeader>It's a simple dialog.</DialogHeader>
         <DialogBody divider>
-         <ProductFormSkel/>
+         <ProductFormSkel open={open} handleOpen={handleOpen}/>
         </DialogBody>
         <DialogFooter> 
           <Button

@@ -3,6 +3,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Spinner } from "@material-tailwind/react";
 
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
@@ -349,7 +350,7 @@ function SignInButton() {
   }, []);
 
   if (isLoading) {
-    return <p>Loading...</p>; // or replace with a spinner
+    return <div className="ms-auto my-auto"> <Spinner /></div>; // or replace with a spinner
   }
 
   if (error) {

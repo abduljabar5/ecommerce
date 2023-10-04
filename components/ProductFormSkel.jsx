@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardBody, Input, Textarea, Button } from "@material-tailwind/react";
 import { useSession } from 'next-auth/react';
-const ProductFormSkel = () => {
+import { useRouter } from "next/navigation";
+
+const ProductFormSkel = ({handleOpen, open}) => {
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState(0);
     const [imageUrl, setImageUrl] = useState('');
@@ -11,7 +13,7 @@ const ProductFormSkel = () => {
     const [products, setProducts] = useState([]);
     const [submitting, setSubmitting] = useState(false);
     const { data: session } = useSession();
-
+const router = useRouter();
     const handleSubmitOne = (e) => {
         e.preventDefault();
         setProducts({
@@ -25,6 +27,7 @@ const ProductFormSkel = () => {
     };
     
     const createProduct = async () => {
+        
         setSubmitting(true);
         try {
             const response = await fetch('/api/product/new', {
@@ -34,7 +37,7 @@ const ProductFormSkel = () => {
                 })
             });
             if(response.ok){
-                console.log('ok');
+                handleOpen(false);
             }
         } catch (error) {
             console.log(error);
@@ -125,8 +128,10 @@ const ProductFormSkel = () => {
                 iconOnly={false}
                 ripple="light"
                 type="submit"
+                disabled={submitting}
+                onClick={handleOpen}
             >
-                Add Product
+               {submitting ? "Submitting" : "Submit"}
             </Button>
         </div>
     </form>

@@ -12,7 +12,7 @@ import { Card, CardBody,IconButton,
         Square3Stack3DIcon,
       } from "@heroicons/react/24/outline";
        
-      import ProductFormSkel from '@components/ProductFormSkel';
+      import GetProduct from '@components/GetProduct';
       import FormModal from '@components/FormModal';
 function AdminProducts() {
     const [open, setOpen] = React.useState(false);
@@ -27,13 +27,7 @@ function AdminProducts() {
             <section className="my-6">
                 <h2 className="text-2xl mb-4">View Products</h2>
                 {/* Sample card for product */}
-                <Card className="max-w-xs">
-                    <img src="https://via.placeholder.com/100" alt="product" className="w-full" />
-                    <CardBody>
-                        <h6 className="text-xl font-semibold">Product Name</h6>
-                        <p>Product description...</p>
-                    </CardBody>
-                </Card>
+                <GetProduct view='admin' />
             </section>
     <div className="fixed right-10 bottom-10">
       <div className="absolute bottom-0 right-0">
