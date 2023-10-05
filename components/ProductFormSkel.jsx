@@ -1,10 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Card, CardBody, Input, Textarea, Button } from "@material-tailwind/react";
+import {Input, Textarea, Button, Select, Option } from "@material-tailwind/react";
 import { useSession } from 'next-auth/react';
 import { useRouter } from "next/navigation";
 
 const ProductFormSkel = ({handleOpen, open}) => {
+    const [category, setCategory] = useState('');
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState(0);
     const [imageUrl, setImageUrl] = useState('');
@@ -13,11 +14,14 @@ const ProductFormSkel = ({handleOpen, open}) => {
     const [products, setProducts] = useState([]);
     const [submitting, setSubmitting] = useState(false);
     const { data: session } = useSession();
-const router = useRouter();
+    const handleChange=(e)=>{
+        setCategory(e);
+    }
     const handleSubmitOne = (e) => {
         e.preventDefault();
         setProducts({
             userId: session.user.id,
+            category,
             productName,
             price: Number(price), // parse price as number
             imageUrl,
@@ -55,9 +59,23 @@ const router = useRouter();
     }, [products]);
 
   return (
-    <div> <section className="my-6 p-6 border border-gray-200 rounded-md">
+    <div> 
     <h2 className="text-2xl mb-4 text-center">Add Product</h2>
     <form onSubmit={handleSubmitOne} className="w-1/2 mx-auto">
+        <div className='mb-4'>
+        <Select 
+       variant="outlined"
+        label="Category"
+        value={category}
+        onChange={handleChange}
+      >
+        <Option value='Shirts'>Shirt</Option>
+        <Option value='Pants'>Pants</Option>
+        <Option value="Shoes">Shoes</Option>
+        <Option value="Accessories">Accessories</Option>
+        <Option value="Sports">Sports</Option>
+      </Select>
+        </div>
         <div className="mb-4">
             <Input
                 type="text"
@@ -118,7 +136,10 @@ const router = useRouter();
             />
         </div>
        
-        <div className="flex justify-end mt-6">
+        <div className="flex justify-end mt-6 gap-2">
+             <Button className='btn btn-outline-primary bg-transparent hover:bg-red-100 text-black shadow-none hover:shadow-xl'
+              onClick={handleOpen}
+             >Close</Button>
             <Button
                 color="lightBlue"
                 buttonType="filled"
@@ -135,7 +156,7 @@ const router = useRouter();
             </Button>
         </div>
     </form>
-</section></div>
+    </div>
   )
 }
 

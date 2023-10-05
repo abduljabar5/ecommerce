@@ -9,6 +9,7 @@ export const POST = async (req, res) => {
 
         const newProduct = new Product({
             creator: products.userId,
+            category: products.category,
             name: products.productName,
             desc: products.description,
             image: products.imageUrl,

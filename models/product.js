@@ -23,6 +23,11 @@ const promptSchema = new Schema({
     },
     discount: {
         type: Number,
+    },
+    category: {
+        type: String,
+        enum: ['Shirts', 'Pants', 'Shoes', 'Accessories', 'Sports'], // Enum to restrict the category to certain values
+        required: [true, 'Category is required.'],
     }
 });
 const Prompt = models.Prompt || model('Prompt', promptSchema);

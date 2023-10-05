@@ -24,7 +24,7 @@ function AdminProducts() {
             <FormModal  handleOpen={handleOpen} open= {open} />
             <h1 className="text-3xl font-bold mt-10 mb-6">Products</h1>
 
-            <section className="my-6">
+            <section className="my-6 mx-24">
                 <h2 className="text-2xl mb-4">View Products</h2>
                 {/* Sample card for product */}
                 <GetProduct view='admin' />

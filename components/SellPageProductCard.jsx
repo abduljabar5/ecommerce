@@ -16,18 +16,19 @@ const truncateText = (text, wordLimit) => {
 };
 
 const SellPageProductCard = ({ product }) => {
-    const discountedPrice = product.discount ? 
-        (product.price - (product.price * product.discount / 100)).toFixed(2) : 
-        null;
-console.log(product);
+    const discountedPrice = 
+  product.discount > 0 ? 
+    (product.price - (product.price * product.discount / 100)).toFixed(2) : 
+    null;
     return (
         <Card className="w-72 my-12 relative">
             <img
                 src={product.image}
                 alt="card-image"
                 className="h-full w-full object-cover rounded-md"
+                style={{width:'288px', height:'288px'}}
             />
-            {product.discount && (
+            {product.discount > 0 && (
                 <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full">
                     {product.discount}% OFF
                 </div>
@@ -38,14 +39,16 @@ console.log(product);
                         {truncateText(product.name, 2)}
                     </Typography>
                     <div className="flex items-center">
-                        {discountedPrice && (
-                             <Typography color="blue-gray" className="font-medium mr-2">
-                            ${discountedPrice || product.price}
-                        </Typography>
-                        )}
-                       <Typography color="blue-gray" className="font-medium line-through">
-                                ${product.price}
-                            </Typography>
+                        {discountedPrice ? (
+                             <><Typography color="blue-gray" className="font-medium mr-2">
+                                ${discountedPrice || product.price}
+                            </Typography><Typography color="blue-gray" className="font-medium line-through">
+                                    ${product.price}
+                                </Typography></>
+                        ): (<Typography color="blue-gray" className="font-medium">
+                        ${product.price}
+                    </Typography>)}
+                
                     </div>
                 </div>
                 <Typography

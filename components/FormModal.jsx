@@ -11,27 +11,10 @@ import ProductFormSkel from '@components/ProductFormSkel';
 export default function DialogDefault({ handleOpen, open }) {
   return (
     <>
-      {/* <Button onClick={handleOpen} variant="gradient">
-        Open Dialog
-      </Button> */}
       <Dialog open={open} handleOpen={handleOpen}>
-        <DialogHeader>It's a simple dialog.</DialogHeader>
         <DialogBody divider>
          <ProductFormSkel open={open} handleOpen={handleOpen}/>
         </DialogBody>
-        <DialogFooter> 
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
       </Dialog>
     </>
   );
