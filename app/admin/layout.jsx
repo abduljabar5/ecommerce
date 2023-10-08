@@ -32,10 +32,6 @@ const Layout = ({ children }) => {
 
     return (
         <div className='flex'>
-         
-            <div>
-                
-            </div>
             <AdminSideNav />
             {children}
         </div>

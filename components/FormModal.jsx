@@ -7,13 +7,15 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import ProductFormSkel from '@components/ProductFormSkel';
-export default function DialogDefault({ handleOpen, open }) {
+import ProductDetail from "./ProductDetail";
+export default function DialogDefault({ handleOpen, open, product,discountedPrice }) {
   return (
     <>
-      <Dialog open={open} handleOpen={handleOpen}>
-        <DialogBody divider>
-         <ProductFormSkel open={open} handleOpen={handleOpen}/>
+      <Dialog open={open} handleOpen={handleOpen} size='lg' className="bg-transparent shadow-none border-none">
+        <DialogBody>
+            {!product ?  <ProductFormSkel open={open} handleOpen={handleOpen}/> : <ProductDetail product = {product} handleOpen = {handleOpen} discountedPrice = {discountedPrice}/> }
         </DialogBody>
       </Dialog>
     </>

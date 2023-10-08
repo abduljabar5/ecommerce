@@ -13,7 +13,7 @@ const page = () => {
     <ThemeProvider>
       <div>
           <Featured />
-          <div className='m-24'>
+          <div className='lg:m-24 sm:m-6'>
           <h1 className='my-16 mx-auto text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-gray-900'>
   Products
 </h1>

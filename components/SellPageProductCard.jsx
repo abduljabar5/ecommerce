@@ -1,3 +1,4 @@
+'use client'
 import {
     Card,
     CardHeader,
@@ -6,7 +7,8 @@ import {
     Typography,
     Button,
 } from "@material-tailwind/react";
-
+import FormModal from "./FormModal";
+import React from "react";
 const truncateText = (text, wordLimit) => {
     const words = text.split(' ');
     if (words.length > wordLimit) {
@@ -16,12 +18,15 @@ const truncateText = (text, wordLimit) => {
 };
 
 const SellPageProductCard = ({ product }) => {
+    const [open, setOpen] = React.useState(false);
+ 
+    const handleOpen = () => setOpen(!open);
     const discountedPrice = 
   product.discount > 0 ? 
     (product.price - (product.price * product.discount / 100)).toFixed(2) : 
     null;
     return (
-        <Card className="w-72 my-12 relative">
+        <Card className="w-72 my-12 mx-auto relative">
             <img
                 src={product.image}
                 alt="card-image"
@@ -64,10 +69,12 @@ const SellPageProductCard = ({ product }) => {
                     ripple={false}
                     fullWidth={true}
                     className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+                    onClick={() => handleOpen(true)}
                 >
                     Add to Cart
                 </Button>
             </CardFooter>
+                    <FormModal product = {product} discountedPrice = {discountedPrice} handleOpen={handleOpen} open = {open} />
         </Card>
     )
 }
