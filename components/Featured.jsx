@@ -5,7 +5,7 @@ import {
   } from "@heroicons/react/24/outline";
 const Featured = () => {
   return (
-    <div className="bg-gray-100 py-12 relative overflow-hidden">
+    <div className="bg-gray-100 py-12 my-12 relative overflow-hidden">
         {/* Background Image */}
         <img
           src="https://images.everydayhealth.com/images/what-are-natural-skin-care-products-alt-1440x810.jpg"

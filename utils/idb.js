@@ -22,3 +22,17 @@ export async function getCartItems() {
   const db = await setupDB();
   return db.getAll('cart');
 }
+export async function deleteFromCart(itemId) {
+  const db = await setupDB();
+  const tx = db.transaction('cart', 'readwrite');
+  const store = tx.objectStore('cart');
+  await store.delete(itemId);
+  return tx.done;
+}
+export async function updateCartItem(item) {
+  const db = await setupDB();
+  const tx = db.transaction('cart', 'readwrite');
+  const store = tx.objectStore('cart');
+  await store.put(item);
+  return tx.done;
+}

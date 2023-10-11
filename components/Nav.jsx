@@ -23,6 +23,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Badge,
 } from "@material-tailwind/react";
 import {
   CubeTransparentIcon,
@@ -116,7 +117,7 @@ function ProfileMenu() {
         <Button
           variant="text"
           color="blue-gray"
-          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-4"
         >
           <Avatar
             variant="circular"
@@ -416,31 +417,34 @@ const [passcode, setPasscode] = useState('');
   
 
   return (
-    <div><Navbar className="mx-auto p-2 lg:pl-6">
+<div className="flex justify-center ">
+    <Navbar className="p-5 lg:pl-6 z-50 max-w-none">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <Typography
           as="a"
           href="#"
-          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium text-3xl"
         >
-          Material Tailwind
+          Ecommerce
         </Typography>
+        
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
           <NavList />
         </div>
-
+<div className="ms-auto me-4">
+        <Badge className="text-xs font-thin"> <ShoppingBagIcon onClick={openDrawerRight} className="h-[20px] w-[20px] hover:cursor-pointer" /></Badge>
+</div>
+        {session?.user ? <ProfileMenu /> : ''}
         <IconButton
           size="sm"
           color="blue-gray"
           variant="text"
           onClick={toggleIsNavOpen}
-          className="ml-auto mr-2 lg:hidden"
+          className="lg:ml-0  mr-2 lg:hidden"
         >
           <Bars2Icon className="h-6 w-6" />
         </IconButton>
 
-        <ShoppingBagIcon onClick={openDrawerRight} className="h-[18px] w-[18px] ms-auto hover:cursor-pointer" />
-        {session?.user ? <ProfileMenu /> : <SignInButton />}
       </div>
       <MobileNav open={isNavOpen} className="overflow-scroll">
         <NavList />

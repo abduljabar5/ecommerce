@@ -1,6 +1,6 @@
 'use client';
 import {useEffect, useState} from 'react';
-import { addToCart, getCartItems } from '@utils/idb';
+import { deleteFromCart, getCartItems } from '@utils/idb';
 
 function CartCard() {
     const [CartItems, setCartItems] = useState();
@@ -26,8 +26,16 @@ function CartCard() {
     };
 // /GET/ //
 // DELETE
-const deleteCartItem = async () => { 
-    
+const deleteCartItem = async (deleteId) => { 
+    try {
+        await deleteFromCart(deleteId);
+        fetchCartItems();
+    } catch (error) {
+        console.error('Error deleting cart item:', error);
+    }
+};
+const handleDelete = (deleteID) =>{
+    deleteCartItem(deleteID);
 }
 // DELETE / //
     useEffect(() => {
@@ -61,7 +69,7 @@ const deleteCartItem = async () => {
                             <p className="text-base font-black leading-none text-gray-800">
                                 {item.name}
                             </p>
-                            <select className="py-2 px-1 border-none border-gray-200 mr-6 focus:outline-none">
+                            <select className="py-2 px-1 border-none mr-6 focus:outline-none cursor-pointer">
                                 <option>01</option>
                                 <option>02</option>
                                 <option>03</option>
@@ -75,9 +83,9 @@ const deleteCartItem = async () => {
                         </p>
                         <div className="flex items-center justify-between pt-5 pr-6">
                             <div className="flex items-center">
-                                <p className="text-xs leading-3 text-red-500 pl-5 cursor-pointer underline">
+                                <button onClick={() => {handleDelete(item._id)}} className="text-xs leading-3 text-red-500 p-0 cursor-pointer underline">
                                     Remove
-                                </p>
+                                </button>
                             </div>
                             <p className="text-base font-black leading-none text-gray-800">
                                 ${item.price}
