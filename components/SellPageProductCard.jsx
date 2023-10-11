@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import FormModal from "./FormModal";
 import React from "react";
+import RatingStars  from "@smallcomponents/RatingStars";
 const truncateText = (text, wordLimit) => {
     const words = text.split(' ');
     if (words.length > wordLimit) {
@@ -26,31 +27,32 @@ const SellPageProductCard = ({ product }) => {
     (product.price - (product.price * product.discount / 100)).toFixed(2) : 
     null;
     return (
-        <Card className="w-72 my-12 mx-auto relative">
+        <Card className=" my-12  relative">
             <img
                 src={product.image}
                 alt="card-image"
                 className="h-full w-full object-cover rounded-md"
-                style={{width:'288px', height:'288px'}}
+                // style={{width:'288px', height:'288px'}}
             />
             {product.discount > 0 && (
-                <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full">
+                <div className="absolute top-2 right-2 bg-red-500 text-xs text-white px-2 py-1 rounded-full">
                     {product.discount}% OFF
                 </div>
             )}
             <CardBody>
-                <div className="mb-2 flex items-center justify-between">
-                    <Typography color="blue-gray" className="font-medium">
+                                    <RatingStars />
+                <div className="mb-1 lg:flex items-center justify-between">
+                    <Typography color="blue-gray" className="text-sm font-bold lg:text-lg ">
                         {truncateText(product.name, 2)}
                     </Typography>
                     <div className="flex items-center">
                         {discountedPrice ? (
-                             <><Typography color="blue-gray" className="font-medium mr-2">
+                             <><Typography color="blue-gray" className="lg:font-medium text-xs mr-2">
                                 ${discountedPrice || product.price}
-                            </Typography><Typography color="blue-gray" className="font-medium line-through">
+                            </Typography><Typography color="blue-gray" className="lg:font-medium text-xs  line-through">
                                     ${product.price}
                                 </Typography></>
-                        ): (<Typography color="blue-gray" className="font-medium">
+                        ): (<Typography color="blue-gray" className="lg:font-medium text-xs ">
                         ${product.price}
                     </Typography>)}
                 
@@ -59,16 +61,16 @@ const SellPageProductCard = ({ product }) => {
                 <Typography
                     variant="small"
                     color="gray"
-                    className="font-normal opacity-75"
+                    className="lg:font-normal lg:block hidden opacity-75"
                 >
                     {truncateText(product.desc, 20)}
                 </Typography>
             </CardBody>
-            <CardFooter className="pt-0 mt-auto">
+            <CardFooter className="pt-0 mt-auto text-xs">
                 <Button
                     ripple={false}
                     fullWidth={true}
-                    className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+                    className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 text-xs px-2 py-2"
                     onClick={() => handleOpen(true)}
                 >
                     Add to Cart

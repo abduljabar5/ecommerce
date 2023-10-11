@@ -36,8 +36,9 @@ import {
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
+  ShoppingBagIcon,
 } from "@heroicons/react/24/outline";
-
+import CartDrawer from '@components/CartDrawer'
 // profile menu component
 
 
@@ -397,7 +398,10 @@ const [passcode, setPasscode] = useState('');
     }
   };
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
-
+  const [openRight, setOpenRight] = React.useState(false);
+ 
+  const openDrawerRight = () => setOpenRight(true);
+  const closeDrawerRight = () => setOpenRight(false);
   
   React.useEffect(() => {
     const handleResize = () => {
@@ -412,7 +416,7 @@ const [passcode, setPasscode] = useState('');
   
 
   return (
-    <Navbar className="mx-auto p-2 lg:pl-6">
+    <div><Navbar className="mx-auto p-2 lg:pl-6">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <Typography
           as="a"
@@ -422,24 +426,25 @@ const [passcode, setPasscode] = useState('');
           Material Tailwind
         </Typography>
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
-  <NavList />
-</div>
+          <NavList />
+        </div>
 
-<IconButton
-  size="sm"
-  color="blue-gray"
-  variant="text"
-  onClick={toggleIsNavOpen}
-  className="ml-auto mr-2 lg:hidden"
->
-  <Bars2Icon className="h-6 w-6" />
-</IconButton>
+        <IconButton
+          size="sm"
+          color="blue-gray"
+          variant="text"
+          onClick={toggleIsNavOpen}
+          className="ml-auto mr-2 lg:hidden"
+        >
+          <Bars2Icon className="h-6 w-6" />
+        </IconButton>
 
-{session?.user ? <ProfileMenu /> : <SignInButton />}
+        <ShoppingBagIcon onClick={openDrawerRight} className="h-[18px] w-[18px] ms-auto hover:cursor-pointer" />
+        {session?.user ? <ProfileMenu /> : <SignInButton />}
       </div>
       <MobileNav open={isNavOpen} className="overflow-scroll">
         <NavList />
       </MobileNav>
-    </Navbar>
+    </Navbar><CartDrawer closeDrawerRight = {closeDrawerRight} openRight = {openRight}/></div>
   );
 }

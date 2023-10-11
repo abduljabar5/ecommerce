@@ -35,7 +35,14 @@
   background-repeat: no-repeat;
   width: 100vw;
 }
-
-/* 
-  Note: The styles for this gradient grid background is heavily inspired by the creator of this amazing site (https://dub.sh) – all credits go to them! 
-*/
+.your-overlay-class {
+  position: fixed;  /* Fixed/sticky position */
+  top: 0;  /* Place the overlay at the top */
+  left: 0;  /* Place the overlay at the left */
+  width: 100%;  /* Full width */
+  height: 100%;  /* Full height */
+  
+}
+.height-96 {
+  height: 92%;
+}

@@ -14,7 +14,7 @@ export default function DialogDefault({ handleOpen, open, product,discountedPric
   return (
     <>
       <Dialog open={open} handleOpen={handleOpen} size='lg' className="bg-transparent shadow-none border-none">
-        <DialogBody>
+        <DialogBody className="h-[40rem] overflow-scroll">
             {!product ?  <ProductFormSkel open={open} handleOpen={handleOpen}/> : <ProductDetail product = {product} handleOpen = {handleOpen} discountedPrice = {discountedPrice}/> }
         </DialogBody>
       </Dialog>
