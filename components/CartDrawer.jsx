@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Drawer, Typography, IconButton } from "@material-tailwind/react";
 import { ShoppingBagIcon } from "@heroicons/react/outline";
-import CartCard from "@smallComponents/CartCard";
+import CartCard from "@components/CartCard";
 
 export default function DrawerDefault({ closeDrawerRight, openRight }) {
 

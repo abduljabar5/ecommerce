@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import FormModal from "./FormModal";
 import React from "react";
-import RatingStars  from "@smallcomponents/RatingStars";
+import RatingStars  from "@components/RatingStars";
 const truncateText = (text, wordLimit) => {
     const words = text.split(' ');
     if (words.length > wordLimit) {

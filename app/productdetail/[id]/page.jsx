@@ -10,7 +10,7 @@ import {
   Select,
 } from "@material-tailwind/react";
 
-import RatingStars from '@smallComponents/RatingStars';
+import RatingStars from '@components/RatingStars';
 import { addToCart, getCartItems } from '@utils/idb';
 import { toast } from 'sonner';
 import { useAppContext } from '@utils/appProvider';
