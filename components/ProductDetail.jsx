@@ -10,7 +10,7 @@ import {
     Select,
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import RatingStars from '@smallcomponents/RatingStars';
+import RatingStars from '@smallComponents/RatingStars';
 import { addToCart, getCartItems } from '@utils/idb';
 import { toast } from 'sonner';
 import { useAppContext } from '@utils/appProvider';
