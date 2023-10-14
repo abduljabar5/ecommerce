@@ -24,7 +24,7 @@ export default function DrawerDefault({ closeDrawerRight, openRight }) {
       placement="right"
       open={openRight}
       onClose={closeDrawerRight}
-      className="p-4"
+      className={openRight ? 'p-4 mx-4 my-4 rounded-xl' : 'p-4 my-4 rounded-xl'}
       size='450px'
     >
       <div className="mb-6 flex items-center justify-between">
@@ -50,9 +50,8 @@ export default function DrawerDefault({ closeDrawerRight, openRight }) {
           </svg>
         </IconButton>
       </div>
-      <div className="height-96 overflow-auto"> 
         <CartCard />
-      </div>
+
     </Drawer> 
   </React.Fragment>
   

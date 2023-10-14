@@ -12,7 +12,7 @@ export const POST = async (req, res) => {
             category: products.category,
             name: products.productName,
             desc: products.description,
-            image: products.imageUrl,
+            images: products.imageUrls,
             price: products.price,
             discount: products.salePrice,
         })

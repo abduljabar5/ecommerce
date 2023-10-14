@@ -8,7 +8,7 @@ const ProductFormSkel = ({handleOpen, open}) => {
     const [category, setCategory] = useState('');
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState(0);
-    const [imageUrl, setImageUrl] = useState('');
+    const [imageUrls, setImageUrls] = useState(['']);
     const [description, setDescription] = useState('');
     const [salePrice, setSalePrice] = useState(0);
     const [products, setProducts] = useState([]);
@@ -17,6 +17,18 @@ const ProductFormSkel = ({handleOpen, open}) => {
     const handleChange=(e)=>{
         setCategory(e);
     }
+    const handleImageUrlChange = (index, newValue) => {
+        setImageUrls(prevUrls => prevUrls.map((url, i) => i === index ? newValue : url));
+      };
+      
+      const addImageUrlField = () => {
+        setImageUrls(prevUrls => [...prevUrls, '']);
+      };
+      
+      const removeImageUrlField = (index) => {
+        setImageUrls(prevUrls => prevUrls.filter((_, i) => i !== index));
+      };
+      
     const handleSubmitOne = (e) => {
         e.preventDefault();
         setProducts({
@@ -24,7 +36,7 @@ const ProductFormSkel = ({handleOpen, open}) => {
             category,
             productName,
             price: Number(price), // parse price as number
-            imageUrl,
+            imageUrls,
             description,
             salePrice: Number(salePrice) // parse salePrice as number
         });
@@ -59,7 +71,7 @@ const ProductFormSkel = ({handleOpen, open}) => {
     }, [products]);
 
   return (
-    <div> 
+    <div className='bg-white'> 
     <h2 className="text-2xl mb-4 text-center">Add Product</h2>
     <form onSubmit={handleSubmitOne} className="w-1/2 mx-auto">
         <div className='mb-4'>
@@ -100,18 +112,47 @@ const ProductFormSkel = ({handleOpen, open}) => {
                 fullwidth
             />
         </div>
-        <div className="mb-4">
-            <Input
-                type="text"
-                color="lightBlue"
-                size="regular"
-                outline={true}
-                placeholder="Image URL"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                fullwidth
-            />
-        </div>
+        {
+  imageUrls.map((url, index) => (
+    <div key={index} className="mb-4 flex">
+      <Input
+        type="text"
+        color="lightBlue"
+        size="regular"
+        outline={true}
+        placeholder={`Image URL ${index + 1}`}
+        value={url}
+        onChange={(e) => handleImageUrlChange(index, e.target.value)}
+        fullwidth
+      />
+      <Button
+        color="red"
+        buttonType="link"
+        size="regular"
+        rounded={false}
+        block={false}
+        iconOnly={false}
+        ripple="light"
+        onClick={() => removeImageUrlField(index)}
+      >
+        Remove
+      </Button>
+    </div>
+  ))
+}
+<Button
+  color="lightBlue"
+  buttonType="link"
+  size="regular"
+  rounded={false}
+  block={false}
+  iconOnly={false}
+  ripple="light"
+  onClick={addImageUrlField}
+>
+  Add another image
+</Button>
+
         <div className="mb-4">
             <Textarea
                 color="lightBlue"

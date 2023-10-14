@@ -10,10 +10,14 @@ import {
     Select,
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import RatingStars from '@smallcomponents/RatingStars'; 
+import RatingStars from '@smallcomponents/RatingStars';
 import { addToCart, getCartItems } from '@utils/idb';
+import { toast } from 'sonner';
+import { useAppContext } from '@utils/appProvider';
+import Link from 'next/link';
 const ProductDetail = (promps) => {
     // const [action, setAction] = useState(false)
+    const { cartItemCount, add2Cart, notificationCount, addNotification } = useAppContext();
     console.log("new Product:", promps);
     const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
     const colors = ['red', 'blue', 'green', 'yellow'];
@@ -21,9 +25,13 @@ const ProductDetail = (promps) => {
     const [quantity, setQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
+    const discountedPrice = promps.discountedPrice;
     const handleButton = () => {
         promps.handleOpen(false);
     }
+    const handleAdd2Cart = () => {
+        add2Cart(1); // Add 1 item to the cart
+    };
     const handleAddToCart = async () => {
         // Create a product object to keep the data clean and structured
         const productData = {
@@ -31,6 +39,7 @@ const ProductDetail = (promps) => {
             name,
             desc,
             price,
+            discountedPrice,
             selectedSize,
             selectedColor,
             quantity,
@@ -41,11 +50,15 @@ const ProductDetail = (promps) => {
         console.log("Adding the following product to cart:", productData);
         try {
             await addToCart(productData);
-            console.log('Item added to cart!');
-            handleButton()
-          } catch (error) {
+            toast.success("Added itme to cart!");
+            handleAdd2Cart();
+            handleButton();
+            console.log('cart item count:c', cartItemCount);
+        } catch (error) {
             console.error('Error adding item to cart:', error);
-          }
+            toast.error('Product already in cart!', { background: 'pink' },);
+            handleButton();
+        }
         // If using Redux, dispatch an action here to add  to your cart state
         // dispatch(addProductToCart(productData));
 
@@ -78,17 +91,17 @@ const ProductDetail = (promps) => {
                 <Typography color="gray" className="mb-4 font-normal">
                     {desc}
                 </Typography>
-                 <RatingStars />
+                <RatingStars />
                 <div className="flex">
-                {promps.discountedPrice ? (
-                    <><Typography variant="h6" color="blue-gray" className="font-lg text-lg mr-2 mb-4">
-                        ${promps.discountedPrice || price}
-                    </Typography><Typography variant="h6" color="blue-gray" className="font-medium line-through mb-4">
-                            ${price}
-                        </Typography></>
-                ) : (<Typography variant="h6" color="blue-gray" className="font-medium mb-4">
-                    ${price}
-                </Typography>)}
+                    {promps.discountedPrice ? (
+                        <><Typography variant="h6" color="blue-gray" className="font-lg text-lg mr-2 mb-4">
+                            ${promps.discountedPrice || price}
+                        </Typography><Typography variant="h6" color="blue-gray" className="font-medium line-through mb-4">
+                                ${price}
+                            </Typography></>
+                    ) : (<Typography variant="h6" color="blue-gray" className="font-medium mb-4">
+                        ${price}
+                    </Typography>)}
                 </div>
 
                 {/* Size Selector */}
@@ -109,7 +122,7 @@ const ProductDetail = (promps) => {
                     {colors.map((color, index) => (
                         <Button
                             key={index}
-                            className={selectedColor === color ? "lightBlue m-1 px-4 py-1" : "ring-black ring-1 text-black bg-transparent m-1 px-4 py-1 shadow-none"}
+                            className={selectedColor === color ? "light-blue m-1 px-4 py-1" : "ring-black ring-1 text-black bg-transparent m-1 px-4 py-1 shadow-none"}
                             onClick={() => setSelectedColor(color)}
                         >
                             {color}
@@ -120,7 +133,7 @@ const ProductDetail = (promps) => {
                 {/* Quantity Selector */}
                 <div className="flex items-center mt-auto">
                     <Button
-                        
+
                         onClick={() => setQuantity(q => Math.max(q - 1, 1))}
                         className="m-1 bg-transparent text-black shadow-none text-lg"
                     >
@@ -136,14 +149,18 @@ const ProductDetail = (promps) => {
                     >
                         +
                     </Button>
-                    <Button color="lightBlue" className="m-1" ripple="dark"
-                    onClick={() => { handleAddToCart() }}
-                    disabled={!selectedColor || !selectedSize}
-                >
-                    Add to Cart
-                </Button>
+                    <Button color="blue-gray" className="m-1" ripple="dark"
+                        onClick={() => { handleAddToCart() }}
+                        disabled={!selectedColor || !selectedSize}
+                        fullWidth
+                    >
+                        Add to Cart
+                    </Button>
                 </div>
-                
+                <Link href={`/productdetail/${_id}`}>
+                    <Button fullWidth>View product detail</Button>
+                </Link>
+
             </CardBody>
         </Card>
 

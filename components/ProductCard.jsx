@@ -4,7 +4,7 @@ import {Button,} from "@material-tailwind/react";
 
         const deleteProduct = async () => {
             try {
-                const response = await fetch(`/api/product/${product._id}`, {
+                const response = await fetch(`/api/product/delete/${product._id}`, {
                     method: 'DELETE'
                 });
                 if (!response.ok) {

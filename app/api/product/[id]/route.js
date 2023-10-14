@@ -1,16 +1,15 @@
-
-import Prompt from "@models/product";
+import Product from "@models/product";
 import { connectToDB } from "@utils/database";
-export const DELETE = async (request, { params }) => {
-    console.log(params.id);
+
+export const GET = async (request, { params }) => {
     try {
         await connectToDB();
-console.log('yep');
+console.log('yeppy');
         // Find the prompt by ID and remove it
-        await Prompt.findByIdAndRemove(params.id);
+        const product = await Product.findById(params.id);
 
-        return new Response("Prompt deleted successfully", { status: 200 });
+        return new Response(JSON.stringify(product), { status: 200 })
     } catch (error) {
-        return new Response("Error deleting prompt", { status: 500 });
+        return new Response("Error getting product", { status: 500 });
     }
-};
+}
