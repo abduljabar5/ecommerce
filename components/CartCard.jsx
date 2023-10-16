@@ -1,19 +1,14 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { deleteFromCart, getCartItems } from '@utils/idb';
+import { deleteFromCart, getCartItems, updateCartItem } from '@utils/idb';
 import { useAppContext } from '@utils/appProvider';
+import Checkout from './Checkout';
 function CartCard() {
     const { cartItemCount, addToCart, notificationCount, addNotification } = useAppContext();
     const [CartItems, setCartItems] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [quantity, setQuantity] = useState({});
     const [total, setTotal] = useState(0);
-    const colorClasses = {
-        red: "bg-red-700",
-        blue: "bg-blue-700",
-        yellow: "bg-yellow-700",
-        green: "bg-green-700"
-    };
     // GET
     const fetchCartItems = async () => {
         try {
@@ -44,34 +39,45 @@ function CartCard() {
     const handleQuantityChange = (itemId, value) => {
         setQuantity((prevQuantity) => {
             const newQuantity = { ...prevQuantity, [itemId]: value };
-            localStorage.setItem('cartQuantity', JSON.stringify(newQuantity));
+            // Save to IndexedDB
+            updateCartItem({
+                _id: itemId,
+                quantity: value,
+            });
             return newQuantity;
         });
     };
+
     useEffect(() => {
         if (CartItems && quantity) {
             const newTotal = CartItems.reduce((acc, item) => {
-                const itemTotal = item.discountedPrice
-                    ? (quantity[item._id] || 1) * item.discountedPrice
-                    : (quantity[item._id] || 1) * item.price;
+                const itemTotal = parseInt(item.discountedPrice)
+                    ? (quantity[item._id] || 1) * parseInt(item.discountedPrice)
+                    : (quantity[item._id] || 1) * parseInt(item.price);
                 return acc + itemTotal;
             }, 0);
             setTotal(newTotal);
-            localStorage.setItem('cartTotal', JSON.stringify(newTotal));
         }
+
     }, [CartItems, quantity]);
     useEffect(() => {
-        const savedQuantity = localStorage.getItem('cartQuantity');
-        const savedTotal = localStorage.getItem('cartTotal');
+        const fetchSavedCartData = async () => {
+            try {
+                const savedItems = await getCartItems();
+                const savedQuantity = savedItems.reduce((acc, item) => {
+                    acc[item._id] = item.quantity;
+                    return acc;
+                }, {});
+                setCartItems(savedItems);
+                setQuantity(savedQuantity);
+            } catch (error) {
+                console.error('Error fetching saved cart data:', error);
+            }
+        };
 
-        if (savedQuantity) {
-            setQuantity(JSON.parse(savedQuantity));
-        }
-        if (savedTotal) {
-            setTotal(JSON.parse(savedTotal));
-        }
-        fetchCartItems();
+        fetchSavedCartData();
         window.addEventListener('cartChanged', handleCartChange);
+
         return () => {
             window.removeEventListener('cartChanged', handleCartChange);
         };
@@ -79,18 +85,15 @@ function CartCard() {
     useEffect(() => {
         fetchCartItems();
     }, [cartItemCount])
-    useEffect(() => {
-        console.log(CartItems);
-    }, [CartItems])
     return (
         <div className='h-[89%]'><div className="border-t border-gray-600 mb-4 height-96 overflow-auto">
-            {isLoading ? ( 
+            {isLoading ? (
                 <div>Loading...</div>
             ) : (
                 <div>
                     {[...CartItems].reverse().map((item, index) => (
-                        <div key={index} className="flex gap-4 py-4 my-4">
-                            <div className="w-1/4">
+                        <div key={index} className="flex flex-col lg:flex-row xl:flex-row md:flex-row gap-4 py-4 my-4">
+                            <div className="lg:w-1/3 md:w-1/3 xl:w-1/3 h-44">
                                 <img
                                     src={item.image}
                                     alt={item.name}
@@ -121,7 +124,7 @@ function CartCard() {
 
                                 <div className="flex items-center justify-between pt-5 pr-6">
                                     <div className="flex items-center">
-                                        <button onClick={() => { handleDelete(item._id); } } className="text-xs leading-3 text-red-500 p-0 cursor-pointer underline">
+                                        <button onClick={() => { handleDelete(item._id); }} className="text-xs leading-3 text-red-500 p-0 cursor-pointer underline">
                                             Remove
                                         </button>
                                     </div>
@@ -142,9 +145,8 @@ function CartCard() {
 
         </div><div className='flex flex-row justify-end gap-4 items-center mx-4'>
                 <p>Subtotal: ${total}</p>
-                <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md focus:outline-none focus:shadow-outline-blue active:bg-blue-700">
-                    Checkout
-                </button>
+
+                <Checkout total={total} items={CartItems} quantity={quantity} />
 
             </div></div>
 
