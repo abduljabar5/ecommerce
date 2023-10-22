@@ -149,10 +149,17 @@ function ProfileMenu() {
           if (label === "DashBoard" && !isAdmin) {
             return null;
           }
-
-
+          // link
+          let href;
+          if (label === "DashBoard") {
+            href = '/admin';
+          } else if (label === "My Profile") {
+            href = '/profile';
+          } else {
+            href = '#';
+          }
           return (
-            <Link href={label === "DashBoard" ? '/admin' : "#"}>
+            <Link href={href}>
               <MenuItem
                 key={label}
                 onClick={action}

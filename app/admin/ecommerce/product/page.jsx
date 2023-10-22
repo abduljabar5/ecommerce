@@ -20,12 +20,12 @@ function AdminProducts() {
     const handleOpen = () => setOpen(!open);
    
     return (
-        <div className="container mx-auto px-4 h-screen overflow-y-auto">
+        <div className="flex flex-col w-full max-h-[92.5vh]">
             <FormModal  handleOpen={handleOpen} open= {open} />
             <h1 className="text-3xl font-bold mt-10 mb-6">Products</h1>
 
-            <section className="my-6 mx-24">
-                <h2 className="text-2xl mb-4">View Products</h2>
+            <section className="my-6 w-full overflow-y-auto">
+                
                 {/* Sample card for product */}
                 <GetProduct view='admin' />
             </section>

@@ -5,9 +5,9 @@ export const POST = async (request) => {
     try {
         const reqBody = await request.json();
         const { items, email } = await reqBody;
-        //   console.log("🚀 ~ file: route.js:8 ~ POST ~ items, email:", items, email)
+          console.log("🚀 ~ file: route.js:8 ~ POST ~ items, email:", items, email)
         const extractingItems = await items.map((item) => ({
-            quantity: item.quantity,
+            quantity: item.quantity ? item.quantity : 1,
             price_data: {
                 currency: "usd",
                 unit_amount: (item.discountedPrice || item.price) * 100,

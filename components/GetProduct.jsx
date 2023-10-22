@@ -57,7 +57,7 @@ const GetProduct = ({ view }) => {
         <>
             {view === 'admin' ? <>
                 {loading ? <div><Loading /></div> :
-                    <div className='flex overflow-x-auto space-x-4'>
+                    <div className='flex flex-col overflow-y-auto space-y-4'>
 
                         {products.map((product, index) => (
                             <CardComponent key={index} product={product} setReload={setReload} />
