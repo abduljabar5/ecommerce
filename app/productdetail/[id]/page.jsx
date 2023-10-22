@@ -15,8 +15,9 @@ import { addToCart, getCartItems } from '@utils/idb';
 import { toast } from 'sonner';
 import { useAppContext } from '@utils/appProvider';
 import Link from 'next/link';
+import AccordionTemp from "@components/AccordionTemp";
 const Product = ({ params }) => {
-
+  const { cartItemCount, add2Cart, notificationCount, addNotification } = useAppContext();
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   const colors = ['red', 'blue', 'green', 'yellow'];
   const [selectedSize, setSelectedSize] = useState('');
@@ -42,12 +43,30 @@ const Product = ({ params }) => {
       console.error('Fetch Error: ', error);
     }
   }
+  const handleAdd2Cart = () => {
+    add2Cart(1); // Add 1 item to the cart
+};
+const handleAddToCart = async () => {
+    try {
+        await addToCart(productData);
+        toast.success("Added itme to cart!");
+        handleAdd2Cart();
+        console.log('cart item count:c', cartItemCount);
+    } catch (error) {
+        console.error('Error adding item to cart:', error);
+        toast.error('Product already in cart!', { background: 'pink' },);
+    }
+};
   useEffect(() => {
     getProduct();
   }, [])
   useEffect(() => {
-    console.log("product data:", productData);
-  }, [productData])
+    setProductData(prevState => ({
+      ...prevState,
+      selectedSize,
+      selectedColor,
+  }))
+  }, [selectedSize, selectedColor])
   return (
     <div className="flex flex-col md:flex-row m-8">
       {isLoading ? <div>Loading...</div> :
@@ -86,7 +105,7 @@ const Product = ({ params }) => {
             <Typography color="gray" className="mb-4 font-normal">
                     {productData.desc}
                 </Typography>
-                <RatingStars />
+                {/* <RatingStars /> */}
                 <div className="flex">
                     {productData.discount ? (
                         <><Typography variant="h6" color="blue-gray" className="font-lg text-lg mr-2 mb-4">
@@ -151,6 +170,7 @@ const Product = ({ params }) => {
                         Add to Cart
                     </Button>
                 </div>
+                <AccordionTemp />
           </div></>
       }
     </div>

@@ -59,11 +59,6 @@ const ProductDetail = (promps) => {
             toast.error('Product already in cart!', { background: 'pink' },);
             handleButton();
         }
-        // If using Redux, dispatch an action here to add  to your cart state
-        // dispatch(addProductToCart(productData));
-
-        // If sending to a server, make a POST request here
-        // axios.post("/api/cart", productData);
     };
     return (
         <Card className="lg:flex-row sm:flex-col relative">

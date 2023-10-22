@@ -7,10 +7,10 @@ import { useRouter } from "next/navigation";
 const ProductFormSkel = ({handleOpen, open}) => {
     const [category, setCategory] = useState('');
     const [productName, setProductName] = useState('');
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState('');
     const [imageUrls, setImageUrls] = useState(['']);
     const [description, setDescription] = useState('');
-    const [salePrice, setSalePrice] = useState(0);
+    const [salePrice, setSalePrice] = useState('');
     const [products, setProducts] = useState([]);
     const [submitting, setSubmitting] = useState(false);
     const { data: session } = useSession();
@@ -71,7 +71,7 @@ const ProductFormSkel = ({handleOpen, open}) => {
     }, [products]);
 
   return (
-    <div className='bg-white'> 
+    <div className='bg-white w-2/3 md:w-3/5 lg:w-1/2 xl:w-1/2 mx-auto py-6 rounded-2xl'> 
     <h2 className="text-2xl mb-4 text-center">Add Product</h2>
     <form onSubmit={handleSubmitOne} className="w-1/2 mx-auto">
         <div className='mb-4'>
@@ -114,7 +114,7 @@ const ProductFormSkel = ({handleOpen, open}) => {
         </div>
         {
   imageUrls.map((url, index) => (
-    <div key={index} className="mb-4 flex">
+    <div key={index} className="mb-4 flex flex-col lg:flex-row">
       <Input
         type="text"
         color="lightBlue"
@@ -143,6 +143,7 @@ const ProductFormSkel = ({handleOpen, open}) => {
 <Button
   color="lightBlue"
   buttonType="link"
+  className='mb-4'
   size="regular"
   rounded={false}
   block={false}

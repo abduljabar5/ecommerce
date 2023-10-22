@@ -16,11 +16,7 @@ const Rootlayout = ({ children }) => {
                     <main className=''>
                         <AppProvider>
                             <Nav />
-                            <Toaster
-                            toastOptions={{
-                                style: { background: 'pink' },
-                              }}
-                            />
+                            <Toaster />
                             {children}
                         </AppProvider>
                     </main>

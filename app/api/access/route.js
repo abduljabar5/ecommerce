@@ -1,6 +1,5 @@
 
 import React from 'react';
-import AdminSideNav from '@components/AdminSideNav';
 import { getSession } from 'next-auth/react';
 
 
@@ -16,14 +15,12 @@ async function checkUserAuthorization() {
 export default async function AdminPage() {
   try {
     const user = await checkUserAuthorization();
-    // ... your logic here
     return true;
   } catch (error) {
     if (error.message === 'Unauthorized') {
       window.location.href = '/';
       return null;
     }
-    // handle other errors if necessary
     return <div>Error: {error.message}</div>;
   }
 }
