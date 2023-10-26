@@ -19,9 +19,8 @@
   border: 1px solid rgba(255, 255, 255, 0.2); /* Semi transparent white border */
 }
 .bg-img{
-  background-image: url('https://img.freepik.com/free-photo/vivid-blurred-colorful-background_58702-2545.jpg?w=1800&t=st=1696609782~exp=1696610382~hmac=dee20acec09ab65b53b0ef70951378ba6c44e103222612c6155be86c92e2ddd5');
+  background-image: url('/images/salebg.png');
   /* width: 100vw; */
-  object-fit: cover;
 
 }
 .colorful-spots {
@@ -50,3 +49,4 @@
   background-image: url('./images/salebg.png');
 
 } */
+svg#freepik_stories-shopping-bag:not(.animated) .animable {opacity: 0;}svg#freepik_stories-shopping-bag.animated #freepik--sunburst-effect--inject-3 {animation: 1s 1 forwards cubic-bezier(.36,-0.01,.5,1.38) zoomOut;animation-delay: 0s;}svg#freepik_stories-shopping-bag.animated #freepik--shopping-bags--inject-3 {animation: 1s 1 forwards cubic-bezier(.36,-0.01,.5,1.38) slideDown;animation-delay: 0s;}svg#freepik_stories-shopping-bag.animated #freepik--Tag--inject-3 {animation: 1s 1 forwards cubic-bezier(.36,-0.01,.5,1.38) zoomIn;animation-delay: 0s;}svg#freepik_stories-shopping-bag.animated #freepik--Stars--inject-3 {animation: 1s 1 forwards cubic-bezier(.36,-0.01,.5,1.38) fadeIn;animation-delay: 0s;}            @keyframes zoomOut {                0% {                    opacity: 0;                    transform: scale(1.5);                }                100% {                    opacity: 1;                    transform: scale(1);                }            }                    @keyframes slideDown {                0% {                    opacity: 0;                    transform: translateY(-30px);                }                100% {                    opacity: 1;                    transform: translateY(0);                }            }                    @keyframes zoomIn {                0% {                    opacity: 0;                    transform: scale(0.5);                }                100% {                    opacity: 1;                    transform: scale(1);                }            }                    @keyframes fadeIn {                0% {                    opacity: 0;                }                100% {                    opacity: 1;                }            } 

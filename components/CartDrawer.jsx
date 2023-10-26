@@ -21,11 +21,11 @@ export default function DrawerDefault({ closeDrawerRight, openRight }) {
         placement="right"
         open={openRight}
         onClose={closeDrawerRight}
-        className={openRight ? 'p-4 my-4 rounded-xl w-11/12 mx-4' : 'p-4 my-4 rounded-xl'}
-        size='450px'
+        className={openRight ? 'p-4 rounded-xl w-11/12 mx-4' : 'p-4 rounded-xl'}
+        size= {450}
       >
-        <div className="mb-6 flex items-center justify-between">
-          <h1 className='text-2xl font-bold'> Shopping Cart</h1>
+        <div className=" flex items-center justify-between mb-3">
+          <h1 className='text-2xl tracking-wider font-medium'> Shopping cart</h1>
           <IconButton
             variant="text"
             color="blue-gray"

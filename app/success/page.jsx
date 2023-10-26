@@ -1,6 +1,37 @@
-import React from 'react'
-
+'use client';
+import {useEffect, useRef, useState} from 'react'
+import {getCartItems, clearCartItems} from '@utils/idb'
 const page = () => {
+    const [loading, setLoading] = useState(true);
+    const handleData = async () => {
+        try {
+            const Data = await getCartItems();
+            console.log("🚀 ~ file: page.jsx:8 ~ handleData ~ Data:", Data)
+            
+            const response = await fetch('/api/order/new',{
+                method: 'POST',
+                body: JSON.stringify({
+                    Data
+                })
+            })
+            if (response.ok){
+                await clearCartItems();
+            }
+            setLoading(false);
+        } catch (error){
+        console.log(error);
+    }
+    } 
+    const didRun = useRef(true); 
+
+    useEffect(() => {
+      if (didRun.current) {
+        handleData(); 
+        didRun.current = false;
+      }
+    }, []);
+    
+    
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
     <div className="bg-white p-8 rounded-lg shadow-md w-96">
@@ -11,8 +42,9 @@ const page = () => {
         </div>
         <h2 className="text-2xl font-semibold text-center mb-4">Payment Successful!</h2>
         <p className="text-center text-gray-600 mb-4">Thank you for your purchase. Your transaction has been completed successfully.</p>
-        <div className="text-center mt-6">
-            <a href="/" className="text-blue-500 hover:underline">Return to Homepage</a>
+        <div className="mx-auto mt-6">
+            {loading ? <div>Loading...</div> : <a href="/" className="text-blue-500 hover:underline">Return to Homepage</a>}
+            
         </div>
     </div>
 </div>

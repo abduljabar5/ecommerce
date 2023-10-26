@@ -1,10 +1,7 @@
 "use client";
 
 import React from "react";
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Spinner } from "@material-tailwind/react";
-
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 import {
@@ -31,19 +28,15 @@ import {
   CodeBracketSquareIcon,
   Square3Stack3DIcon,
   ChevronDownIcon,
-  Cog6ToothIcon,
   InboxArrowDownIcon,
   LifebuoyIcon,
-  PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
   ShoppingBagIcon,
-  HomeModernIcon,
 } from "@heroicons/react/24/outline";
 import { BsLightningChargeFill } from 'react-icons/bs';
 import { AiFillHome } from 'react-icons/ai';
-import { PiSignInBold, PiSignOutLight } from 'react-icons/pi';
-import { VscSignOut } from 'react-icons/vsc';
+import { PiSignInBold, PiSignOutLight, PiListChecks } from 'react-icons/pi';
 
 import CartDrawer from '@components/CartDrawer'
 // profile menu component
@@ -61,8 +54,8 @@ function ProfileMenu() {
       icon: UserCircleIcon,
     },
     {
-      label: "Edit Profile",
-      icon: Cog6ToothIcon,
+      label: "View orders",
+      icon: PiListChecks,
     },
     {
       label: "Inbox",
@@ -155,6 +148,8 @@ function ProfileMenu() {
             href = '/admin';
           } else if (label === "My Profile") {
             href = '/profile';
+          } else if (label === "View orders") {
+            href = '/orders'
           } else {
             href = '#';
           }
@@ -303,19 +298,19 @@ const navListItems = [
   {
     label: "Home",
     icon: AiFillHome,
+    href: "/",
   },
   {
     label: "Sale",
     icon: BsLightningChargeFill,
+    href: "/sale"
   },
-  // {
-  //   label: "Docs",
-  //   icon: CodeBracketSquareIcon,
-  // },
   {
     label: "Sign In",
     icon: PiSignInBold,
+    href: "#",
     action: () => signIn('google')
+
   },
 
 ];
@@ -325,92 +320,27 @@ function NavList() {
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <NavListMenu />
-      {navListItems.map(({ label, icon, action }, key) => (
+      {navListItems.map(({ label, icon, href, action }, key) => (
         (!session || label !== "Sign In") && (  // <-- conditionally render
-          <Typography
-            key={label}
-            as="a"
-            variant="small"
-            color="blue-gray"
-            className="font-normal"
-            onClick={action}
-          >
-            <MenuItem className="flex items-center gap-2 lg:rounded-full">
-              {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-              {label}
-            </MenuItem>
-          </Typography>
+        
+       <Link href={href} onClick={action} className="flex items-center gap-2 lg:rounded-full">
+  {React.createElement(icon, { className: "h-[18px] w-[18px]" })}
+  <Typography variant="small" color="blue-gray" className="font-normal">
+    {label}
+  </Typography>
+</Link>
+
+         
         )
       ))}
     </ul>
   );
 }
-function SignInButton() {
-  const [providers, setProviders] = React.useState(null);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [error, setError] = React.useState(null);
-
-  React.useEffect(() => {
-    const fetchProviders = async () => {
-      try {
-        const res = await getProviders();
-        setProviders(res);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchProviders();
-  }, []);
-
-  if (isLoading) {
-    return <div className="ms-auto my-auto"> <Spinner /></div>; // or replace with a spinner
-  }
-
-  if (error) {
-    return <p>Error loading providers. Please try again.</p>;
-  }
-
-  return (
-    <>
-      {providers &&
-        Object.values(providers).map((provider) => (
-          <Button
-            type="button"
-            color="blue-gray"
-            variant="contained"
-            className="ml-auto mr-2 lg:hidden"
-            key={provider.name}
-            onClick={() => {
-              signIn(provider.id);
-            }}
-            aria-label={`Sign in with ${provider.name}`}
-          >
-            Sign in with {provider.name}
-          </Button>
-        ))}
-    </>
-  );
-}
-
-
 export default function ComplexNavbar() {
 
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const { data: session } = useSession();
   console.log(session);
-  const [passcode, setPasscode] = useState('');
-  const [error, setError] = useState(null);
-
-  const handlePasscodeSubmit = async () => {
-    if (passcode === '0000') {
-      // Make an API call to update the user's role to 'admin' in the database
-      // If successful, maybe also update session/client-side state to reflect the change
-    } else {
-      setError("Invalid passcode");
-    }
-  };
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
   const [openRight, setOpenRight] = React.useState(false);
 
@@ -427,8 +357,6 @@ export default function ComplexNavbar() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-
   return (
     <div className="flex justify-center ">
       <Navbar className="p-5 lg:pl-6 z-50 max-w-none">
@@ -445,7 +373,7 @@ export default function ComplexNavbar() {
             <NavList />
           </div>
           <div className="ms-auto me-4">
-            <Badge className="text-xs font-thin"> <ShoppingBagIcon onClick={openDrawerRight} className="h-[20px] w-[20px] hover:cursor-pointer" /></Badge>
+            <Badge className="text-xs font-"> <ShoppingBagIcon onClick={openDrawerRight} className="h-[20px] w-[20px] hover:cursor-pointer" /></Badge>
           </div>
           {session?.user ? <ProfileMenu /> : ''}
           <IconButton

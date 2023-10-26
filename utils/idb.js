@@ -22,6 +22,10 @@ export async function getCartItems() {
   const db = await setupDB();
   return db.getAll('cart');
 }
+export async function clearCartItems() {
+  const db = await setupDB();
+  return db.clear('cart');
+}
 export async function deleteFromCart(itemId) {
   const db = await setupDB();
   const tx = db.transaction('cart', 'readwrite');

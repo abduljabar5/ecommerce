@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { deleteFromCart, getCartItems, updateCartItem } from '@utils/idb';
 import { useAppContext } from '@utils/appProvider';
 import Checkout from './Checkout';
+import EmptyCart from './EmptyCart';
 function CartCard() {
     const { cartItemCount, addToCart, notificationCount, addNotification } = useAppContext();
     const [CartItems, setCartItems] = useState();
@@ -86,11 +87,12 @@ function CartCard() {
         fetchCartItems();
     }, [cartItemCount])
     return (
-        <div className='h-[89%]'><div className="border-t border-gray-600 mb-4 height-96 overflow-auto">
+        <div className='h-[89%]'><div className="border-t border-gray-300 mb-4 height-96 overflow-auto">
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
                 <div>
+                    {CartItems.length === 0 ? (<div><EmptyCart/></div>) : (<>
                     {[...CartItems].reverse().map((item, index) => (
                         <div key={index} className="flex flex-col lg:flex-row xl:flex-row md:flex-row gap-4 py-4 my-4">
                             <div className="lg:w-1/3 md:w-1/3 xl:w-1/3 h-44">
@@ -138,13 +140,13 @@ function CartCard() {
                             </div>
 
                         </div>
-                    ))}
+                    ))} </>)}
                 </div>
             )}
 
 
         </div><div className='flex flex-row justify-end gap-4 items-center mx-4'>
-                <p>Subtotal: ${total}</p>
+                {/* <p>Subtotal: ${total}</p> */}
 
                 <Checkout total={total} items={CartItems} quantity={quantity} />
 

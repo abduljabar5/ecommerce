@@ -10,7 +10,7 @@ import LogInPrompt from './LogInPrompt';
 // Load Stripe outside of the component to avoid loading it on every render.
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_TEST_PUBLIC_KEY);
 
-const Checkout = () => {
+const Checkout = ({total}) => {
     const { data: userSession, status } = useSession();
     const [isLoading, setIsLoading] = useState(false);
     const handleCheckout = async () => {
@@ -44,10 +44,11 @@ const Checkout = () => {
         <>
             {status === 'loading' ? <div>Loading</div> :
                 <button
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded shadow-md focus:outline-none focus:shadow-outline-blue active:bg-blue-700"
+                className={`flex justify-between bg-gray-500 hover:bg-gray-600 text-white font-bold py-5 px-4 rounded-md shadow-md focus:outline-none focus:shadow-outline-gray active:bg-gray-700 w-full ${total === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                     onClick={() => { status === 'authenticated' ? handleCheckout() : toast( <LogInPrompt />, { duration: 800 }) }}
+                    disabled = {total === 0}
                 >
-                    {isLoading ? 'Loading' : 'Checkout'}
+                    {isLoading ? 'Loading...' : 'Proceed To Checkout'} <spam className='border-l-2 px-4'> ${total} </spam>
 
                 </button>}</>
     );
