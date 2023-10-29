@@ -14,14 +14,16 @@ import RatingStars from '@components/RatingStars';
 import { addToCart, getCartItems } from '@utils/idb';
 import { toast } from 'sonner';
 import { useAppContext } from '@utils/appProvider';
+import { useSession } from "next-auth/react";
+
 import Link from 'next/link';
 const ProductDetail = (promps) => {
     // const [action, setAction] = useState(false)
     const { cartItemCount, add2Cart, notificationCount, addNotification } = useAppContext();
-    console.log("new Product:", promps);
+    const { data: session } = useSession();
     const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
     const colors = ['red', 'blue', 'green', 'yellow'];
-    const { category, desc, discount, image, name, price, _id } = promps.product
+    const { category, desc, discount, image, name, price, _id, images } = promps.product
     const [quantity, setQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
@@ -35,6 +37,7 @@ const ProductDetail = (promps) => {
     const handleAddToCart = async () => {
         // Create a product object to keep the data clean and structured
         const productData = {
+            creator: session?.user?.id,
             _id,
             name,
             desc,
@@ -74,7 +77,7 @@ const ProductDetail = (promps) => {
                 className="m-0 lg:w-2/5 shrink-0"
             >
                 <img
-                    src={image}
+                    src={image || images[0]}
                     alt="product-image"
                     className=" object-fill"
                 />

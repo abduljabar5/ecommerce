@@ -29,7 +29,7 @@ const SellPageProductCard = ({ product }) => {
     return (
         <Card className=" my-12  relative">
             <img
-                src={product.image}
+                src={product.image || product.images[0]}
                 alt="card-image"
                 className="h-full w-full object-cover rounded-md"
                 // style={{width:'288px', height:'288px'}}

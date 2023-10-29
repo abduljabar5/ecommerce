@@ -73,7 +73,7 @@ const handleAddToCart = async () => {
         <><div className="flex flex-col-reverse md:flex-col md:w-1/2">
          <div className="h-[70%] flex items-center justify-center overflow-hidden rounded-xl">
     <img
-        src={activeImage}
+        src={activeImage || productData.image}
         alt="Large product"
         className="w-full object-cover transform transition-transform duration-500 hover:scale-90"
     />

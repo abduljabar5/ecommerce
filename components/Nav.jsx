@@ -149,7 +149,7 @@ function ProfileMenu() {
           } else if (label === "My Profile") {
             href = '/profile';
           } else if (label === "View orders") {
-            href = '/orders'
+            href = '/profile/orders'
           } else {
             href = '#';
           }
