@@ -13,22 +13,17 @@ const handler = NextAuth({
   ],
   callbacks: {
     async session({ session }) {
-      // store the user id from MongoDB to session
       const sessionUser = await User.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
-      session.user.role = sessionUser.role; // Add this line to include the role in session
+      session.user.role = sessionUser.role; 
 
       return session;
 
     },
-    async signIn({ account, profile, user, credentials }) {
+    async signIn({  profile }) {
       try {
         await connectToDB();
-        console.log('proflie:', profile);
-        // check if user already exists
         const userExists = await User.findOne({ email: profile.email });
-
-        // if not, create a new document and save user in MongoDB
         if (!userExists) {
           try {
             await User.create({
@@ -39,8 +34,6 @@ const handler = NextAuth({
             });
           } catch (error) {
             console.error("Error creating user:", error.message);
-            // Optionally, if you want to log the full error object including the stack trace
-            // console.error(error);
           }
         }
 

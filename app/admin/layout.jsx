@@ -11,16 +11,12 @@ const Layout = ({ children }) => {
     const router = useRouter();
 
     useEffect(() => {
-        // Only perform the check once the session data is loaded
         console.log(status === "unauthenticated");            
-
         if (status === 'unauthenticated' || (status === 'authenticated' && session.user.role !== "admin")) {
             router.push('/?message=notAdmin'); 
             toast('DONT DO THAT!, You are not Adim');
         } 
     }, [session, status]);
-
-    // A loading state can be rendered while waiting for the session
     if (status === 'loading') {
         return (
             <div className='flex justify-center items-center min-h-screen'>
@@ -28,8 +24,6 @@ const Layout = ({ children }) => {
             </div>
         );
     }
-
-
     return (
         <div className='flex'>
             <AdminSideNav />

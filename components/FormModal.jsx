@@ -1,13 +1,5 @@
 'use client';
-import React,{useEffect, useState} from "react";
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-} from "@material-tailwind/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { Dialog, DialogBody } from "@material-tailwind/react";
 import ProductFormSkel from '@components/ProductFormSkel';
 import ProductDetail from "./ProductDetail";
 import UpdateProduct from '@components/UpdateProduct';

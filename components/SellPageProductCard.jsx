@@ -1,7 +1,6 @@
 'use client'
 import {
     Card,
-    CardHeader,
     CardBody,
     CardFooter,
     Typography,
@@ -9,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import FormModal from "./FormModal";
 import React from "react";
-import RatingStars  from "@components/RatingStars";
+import RatingStars from "@components/RatingStars";
 const truncateText = (text, wordLimit) => {
     const words = text.split(' ');
     if (words.length > wordLimit) {
@@ -20,19 +19,19 @@ const truncateText = (text, wordLimit) => {
 
 const SellPageProductCard = ({ product }) => {
     const [open, setOpen] = React.useState(false);
- 
+
     const handleOpen = () => setOpen(!open);
-    const discountedPrice = 
-  product.discount > 0 ? 
-    (product.price - (product.price * product.discount / 100)).toFixed(2) : 
-    null;
+    const discountedPrice =
+        product.discount > 0 ?
+            (product.price - (product.price * product.discount / 100)).toFixed(2) :
+            null;
     return (
         <Card className=" my-12  relative">
             <img
                 src={product.image || product.images[0]}
                 alt="card-image"
                 className="h-full w-full object-cover rounded-md"
-                // style={{width:'288px', height:'288px'}}
+            // style={{width:'288px', height:'288px'}}
             />
             {product.discount > 0 && (
                 <div className="absolute top-2 right-2 bg-red-500 text-xs text-white px-2 py-1 rounded-full">
@@ -40,22 +39,22 @@ const SellPageProductCard = ({ product }) => {
                 </div>
             )}
             <CardBody>
-                                    <RatingStars />
+                <RatingStars />
                 <div className="mb-1 lg:flex items-center justify-between">
                     <Typography color="blue-gray" className="text-sm font-bold lg:text-lg ">
                         {truncateText(product.name, 2)}
                     </Typography>
                     <div className="flex items-center">
                         {discountedPrice ? (
-                             <><Typography color="blue-gray" className="lg:font-medium text-xs mr-2">
+                            <><Typography color="blue-gray" className="lg:font-medium text-xs mr-2">
                                 ${discountedPrice || product.price}
                             </Typography><Typography color="blue-gray" className="lg:font-medium text-xs  line-through">
                                     ${product.price}
                                 </Typography></>
-                        ): (<Typography color="blue-gray" className="lg:font-medium text-xs ">
-                        ${product.price}
-                    </Typography>)}
-                
+                        ) : (<Typography color="blue-gray" className="lg:font-medium text-xs ">
+                            ${product.price}
+                        </Typography>)}
+
                     </div>
                 </div>
                 <Typography
@@ -76,7 +75,7 @@ const SellPageProductCard = ({ product }) => {
                     Add to Cart
                 </Button>
             </CardFooter>
-                    <FormModal product = {product} discountedPrice = {discountedPrice} handleOpen={handleOpen} open = {open} />
+            <FormModal product={product} discountedPrice={discountedPrice} handleOpen={handleOpen} open={open} />
         </Card>
     )
 }

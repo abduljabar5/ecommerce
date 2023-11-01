@@ -1,24 +1,22 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { deleteFromCart, getCartItems, updateCartItem } from '@utils/idb';
+import { getCartItems } from '@utils/idb';
 import { useSession } from "next-auth/react";
 import { toast } from 'sonner';
-import Loading from './Loading';
 import LogInPrompt from './LogInPrompt';
-// Load Stripe outside of the component to avoid loading it on every render.
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_TEST_PUBLIC_KEY);
 
-const Checkout = ({total}) => {
+const Checkout = ({ total }) => {
     const { data: userSession, status } = useSession();
     const [isLoading, setIsLoading] = useState(false);
     const handleCheckout = async () => {
         setIsLoading(true);
-        
+
         try {
             const email = userSession?.user?.email
-        console.log("🚀 ~ file: Checkout.jsx:18 ~ handleCheckout ~ email:", email)
+            console.log("🚀 ~ file: Checkout.jsx:18 ~ handleCheckout ~ email:", email)
             const items = await getCartItems();
             const stripe = await stripePromise;
             if (!stripe) throw new Error("Stripe has not loaded properly.");
@@ -44,9 +42,9 @@ const Checkout = ({total}) => {
         <>
             {status === 'loading' ? <div>Loading</div> :
                 <button
-                className={`flex justify-between bg-gray-500 hover:bg-gray-600 text-white font-bold py-5 px-4 rounded-md shadow-md focus:outline-none focus:shadow-outline-gray active:bg-gray-700 w-full ${total === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-                    onClick={() => { status === 'authenticated' ? handleCheckout() : toast( <LogInPrompt />, { duration: 800 }) }}
-                    disabled = {total === 0}
+                    className={`flex justify-between bg-gray-500 hover:bg-gray-600 text-white font-bold py-5 px-4 rounded-md shadow-md focus:outline-none focus:shadow-outline-gray active:bg-gray-700 w-full ${total === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                    onClick={() => { status === 'authenticated' ? handleCheckout() : toast(<LogInPrompt />, { duration: 800 }) }}
+                    disabled={total === 0}
                 >
                     {isLoading ? 'Loading...' : 'Proceed To Checkout'} <spam className='border-l-2 px-4'> ${total} </spam>
 

@@ -1,23 +1,13 @@
 'use client';
 import { useState, useEffect } from "react";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Typography,
-  Button,
-  Input,
-  Select,
-} from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
 
-import RatingStars from '@components/RatingStars';
-import { addToCart, getCartItems } from '@utils/idb';
+import { addToCart } from '@utils/idb';
 import { toast } from 'sonner';
 import { useAppContext } from '@utils/appProvider';
-import Link from 'next/link';
 import AccordionTemp from "@components/AccordionTemp";
 const Product = ({ params }) => {
-  const { cartItemCount, add2Cart, notificationCount, addNotification } = useAppContext();
+  const { cartItemCount, add2Cart} = useAppContext();
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   const colors = ['red', 'blue', 'green', 'yellow'];
   const [selectedSize, setSelectedSize] = useState('');
@@ -44,7 +34,7 @@ const Product = ({ params }) => {
     }
   }
   const handleAdd2Cart = () => {
-    add2Cart(1); // Add 1 item to the cart
+    add2Cart(1); 
 };
 const handleAddToCart = async () => {
     try {

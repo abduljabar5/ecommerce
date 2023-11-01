@@ -6,21 +6,21 @@ let isConnected = false;
 export const connectToDB = async () => {
     mongoose.set('strictQuery', true);
 
-    if(isConnected){
+    if (isConnected) {
         console.log('mongodb is connected');
         return;
     }
-    try{
-        await mongoose.connect(process.env.MONGODB_URI,{
-            dbName:"Ecommerce",
+    try {
+        await mongoose.connect(process.env.MONGODB_URI, {
+            dbName: "Ecommerce",
             useNewUrlParser: true,
-            useUnifiedTopology:true,
+            useUnifiedTopology: true,
         })
         isConnected = true;
 
         console.log("mongodb connected");
-    } catch (error){
+    } catch (error) {
 
-        console.log(error,';keys messed up');
+        console.log(error, ';keys messed up');
     }
 }  

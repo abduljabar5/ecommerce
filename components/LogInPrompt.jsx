@@ -1,5 +1,4 @@
-import React from 'react'
-import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 const LogInPrompt = () => {
   return (

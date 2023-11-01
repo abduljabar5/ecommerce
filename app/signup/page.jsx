@@ -1,8 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import { FaBeer } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 function SignUpForm() {
   const { data: session } = useSession();
 

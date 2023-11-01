@@ -5,7 +5,7 @@ import Provider from '@components/Provider';
 import { AppProvider } from '@utils/appProvider';
 export const metadata = {
     title: "Ecommerce",
-    description: "Discover new ai prompts!"
+    description: "Shop Now"
 }
 
 const Rootlayout = ({ children }) => {

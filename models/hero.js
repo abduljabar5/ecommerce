@@ -31,7 +31,7 @@ const heroSchema = new Schema({
     },
     category: {
         type: String,
-        enum: ['Shirts', 'Pants', 'Shoes', 'Accessories', 'Sports'], // Enum to restrict the category to certain values
+        enum: ['Shirts', 'Pants', 'Shoes', 'Accessories', 'Sports'],
         required: false,
     }
 });

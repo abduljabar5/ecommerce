@@ -22,7 +22,7 @@ export default function DrawerDefault({ closeDrawerRight, openRight }) {
         open={openRight}
         onClose={closeDrawerRight}
         className={openRight ? 'p-4 rounded-xl w-11/12 mx-4' : 'p-4 rounded-xl'}
-        size= {450}
+        size={450}
       >
         <div className=" flex items-center justify-between mb-3">
           <h1 className='text-2xl tracking-wider font-medium'> Shopping cart</h1>

@@ -4,9 +4,7 @@ import { connectToDB } from "@utils/database";
 export const GET = async (request) => {
     try {
         await connectToDB()
-console.log('good');
         const orders = await Order.find({})
-
         return new Response(JSON.stringify(orders), { status: 200 })
     } catch (error) {
         console.error(error);

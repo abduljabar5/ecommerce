@@ -1,12 +1,6 @@
 'use client';
 import React from 'react'
 import { ThemeProvider, } from "@material-tailwind/react";
-import { useRouter } from 'next/navigation';
-import {
-  EyeIcon,
-  ShoppingCartIcon
-} from "@heroicons/react/24/outline";
-import Featured from '@components/Featured';
 import GetProduct from '@components/GetProduct';
 import Hero from '@components/Hero';
 const page = () => {

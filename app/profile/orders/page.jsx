@@ -48,7 +48,7 @@ const page = () => {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        profileData.map(order => (
+        [...profileData].reverse().map(order => (
           <OrderCard key={order._id} order={order} />
         ))
       )}

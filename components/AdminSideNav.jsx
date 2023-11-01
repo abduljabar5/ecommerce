@@ -13,7 +13,6 @@ import {
     Accordion,
     AccordionHeader,
     AccordionBody,
-    Alert,
 } from "@material-tailwind/react";
 
 import {
@@ -27,13 +26,13 @@ import {
 import {
     ChevronRightIcon,
     ChevronDownIcon,
-    CubeTransparentIcon,
 } from "@heroicons/react/24/outline";
+import {AiOutlineClose, AiOutlineMenuUnfold} from 'react-icons/ai'
 import { useSession } from "next-auth/react";
 export default function SidebarWithLogo() {
     const [open, setOpen] = React.useState(0);
     const [openAlert, setOpenAlert] = React.useState(true);
-    const [isSidebarOpen, setIsSidebarOpen] = React.useState(false); // sidebar closed by default for mobile view
+    const [isSidebarOpen, setIsSidebarOpen] = React.useState(false); 
     const { data: session } = useSession();
 
     const handleOpen = (value) => {
@@ -44,7 +43,7 @@ export default function SidebarWithLogo() {
         setIsSidebarOpen(!isSidebarOpen);
     }
     return (
-        <> <div className={`fixed top-0 left-0 h-full w-64 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static`}>
+        <> <div className={`absolute z-40 top-6 left-0 h-full w-64 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static`}>
             <Card className="h-[92.5vh] w-full p-4 mt-16 shadow-xl bg-gray-900 shadow-blue-gray-900/5 lg:mt-0">
                 <div className="mb-2 flex items-center gap-4 p-4">
                     <img src={session?.user?.image} alt="brand" className="h-12 w-12 rounded-full" />
@@ -167,15 +166,11 @@ export default function SidebarWithLogo() {
                 </List>
             </Card>  <button
                 onClick={toggleSidebar}
-                className={`fixed px-4  py-2 top-16 z-10 ${isSidebarOpen ? 'right-0 text-white' : 'left-64 text-black'} lg:hidden transition-all duration-300`}>
+                className={`fixed px-4  py-2 top-16 z-50 ${isSidebarOpen ? 'right-0 text-white' : 'left-64 text-black'} lg:hidden transition-all duration-300`}>
                 {isSidebarOpen ?
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                    <AiOutlineClose />
                     :
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>}
+                    <AiOutlineMenuUnfold />}
             </button>
         </div></>
     );

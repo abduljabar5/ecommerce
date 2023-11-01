@@ -1,29 +1,26 @@
 'use client';
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
     Card,
     CardHeader,
     CardBody,
     Typography,
     Button,
-    Input,
-    Select,
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import RatingStars from '@components/RatingStars';
-import { addToCart, getCartItems } from '@utils/idb';
+import { addToCart } from '@utils/idb';
 import { toast } from 'sonner';
 import { useAppContext } from '@utils/appProvider';
 import { useSession } from "next-auth/react";
 
 import Link from 'next/link';
 const ProductDetail = (promps) => {
-    // const [action, setAction] = useState(false)
-    const { cartItemCount, add2Cart, notificationCount, addNotification } = useAppContext();
+    const { cartItemCount, add2Cart } = useAppContext();
     const { data: session } = useSession();
     const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
     const colors = ['red', 'blue', 'green', 'yellow'];
-    const { category, desc, discount, image, name, price, _id, images } = promps.product
+    const { category, desc, image, name, price, _id, images } = promps.product
     const [quantity, setQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
@@ -32,10 +29,9 @@ const ProductDetail = (promps) => {
         promps.handleOpen(false);
     }
     const handleAdd2Cart = () => {
-        add2Cart(1); // Add 1 item to the cart
+        add2Cart(1);
     };
     const handleAddToCart = async () => {
-        // Create a product object to keep the data clean and structured
         const productData = {
             creator: session?.user?.id,
             _id,

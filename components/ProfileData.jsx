@@ -16,7 +16,6 @@ const ProfileData = ({ children }) => {
           const response = await fetch(`/api/order/${id}`);
           if (response.ok) {
             const data = await response.json();
-            // console.log("🚀 ~ file: ProfileData.jsx:19 ~ fetchOrder ~ data:", data)
             setProfileData(data);
           }
         }
@@ -25,9 +24,9 @@ const ProfileData = ({ children }) => {
       }
     };
 
-    fetchOrder(); 
+    fetchOrder();
 
-  }, [session?.user]); 
+  }, [session?.user]);
 
   return (
     <ProfileContext.Provider value={profileData}>

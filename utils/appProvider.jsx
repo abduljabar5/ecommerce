@@ -12,7 +12,6 @@ export const AppProvider = ({ children }) => {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [notificationCount, setNotificationCount] = useState(0);
 
-  // Functions to update the counts
   const add2Cart = (number) => setCartItemCount(prev => prev + number);
   const addNotification = (number) => setNotificationCount(prev => prev + number);
 

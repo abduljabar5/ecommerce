@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 export const POST = async (request) => {
     const stripe = new Stripe(process.env.TEST_STRIPE_SECRET_KEY);
     try {

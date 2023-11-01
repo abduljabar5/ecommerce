@@ -6,7 +6,6 @@ export const POST = async (req, res) => {
     try {
         console.log(products);
         await connectToDB();
-
         const newProduct = new Product({
             creator: products.userId,
             category: products.category,

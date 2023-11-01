@@ -9,28 +9,15 @@ import {
 } from "@material-tailwind/react";
 import { stringify } from 'postcss';
 import TableLoader from './TableLoader';
-const ChargeTable = ({data, loading}) => {
-    // const data = [{
-    //     img:
-    //     name: data.
-    //     amount,
-    //     date:
-    //     data.status,
-    //     data?.payment_method_details?.card?.brand,
-    //     data?.payment_method_details?.card?.brandNumber,
-    //     expiry,
-    // }]
-    console.log('data:', data)
-
+const ChargeTable = ({ data, loading }) => {
     return (
-        // <></>
         <tbody>
-            {loading ?<tr>
-            <td colSpan={5}>
-                <TableLoader />
-            </td>
-        </tr> : <>
-            {data.map((item, index) => {
+            {loading ? <tr>
+                <td colSpan={5}>
+                    <TableLoader />
+                </td>
+            </tr> : <>
+                {data.map((item, index) => {
                     const isLast = index === data.length - 1;
                     const classes = isLast
                         ? "p-4"
@@ -85,7 +72,7 @@ const ChargeTable = ({data, loading}) => {
                                                 : item.status === "pending"
                                                     ? "amber"
                                                     : "red"
-                                        } 
+                                        }
                                     />
                                 </div>
                             </td>
@@ -132,8 +119,8 @@ const ChargeTable = ({data, loading}) => {
                         </tr>
                     );
                 },
-            )}
-       </>} </tbody>
+                )}
+            </>} </tbody>
     )
 }
 

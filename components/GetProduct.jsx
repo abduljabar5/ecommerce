@@ -34,13 +34,6 @@ const GetProduct = ({ view }) => {
         };
         fetchProducts();
     }, [reload]);
-    useEffect(() => {
-        console.log("product:", products);
-
-    }, [products])
-
-
-    // Determining which component to render based on the view prop
     const CardComponent = view === 'admin' ? ProductCard :
         view === 'user' ? SellPageProductCard :
             null;

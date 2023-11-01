@@ -45,52 +45,52 @@ function Icon({ id, open }) {
 }
 const AccordionTemp = () => {
   const reviews = [
-    {name:"John Doe" ,
-      subject:"Great Product!" ,
-      rating:4,
-      description:"I've been using this product for a while and it's really amazing. Highly recommend it."},
-    {name:"John Doe" ,
-    subject:"Great Product!" ,
-    rating:4,
-    description:"I've been using this product for a while and it's really amazing. Highly recommend it."},
+    {
+      name: "John Doe",
+      subject: "Great Product!",
+      rating: 4,
+      description: "I've been using this product for a while and it's really amazing. Highly recommend it."
+    },
+    {
+      name: "John Doe",
+      subject: "Great Product!",
+      rating: 4,
+      description: "I've been using this product for a while and it's really amazing. Highly recommend it."
+    },
     // ... (add more reviews as needed)
-];
-    const [open, setOpen] = React.useState(0);
- 
-    const handleOpen = (value) => setOpen(open === value ? 0 : value);
-   
-    return (
-      <>
-        <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-          <AccordionHeader onClick={() => handleOpen(1)}>What is Material Tailwind?</AccordionHeader>
-          <AccordionBody>
-            We&apos;re not always in the position that we want to be at. We&apos;re constantly
-            growing. We&apos;re constantly making mistakes. We&apos;re constantly trying to express
-            ourselves and actualize our dreams.
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
-          <AccordionHeader onClick={() => handleOpen(2)}>
-            How to use Material Tailwind?
-          </AccordionHeader>
-          <AccordionBody>
-            We&apos;re not always in the position that we want to be at. We&apos;re constantly
-            growing. We&apos;re constantly making mistakes. We&apos;re constantly trying to express
-            ourselves and actualize our dreams.
-          </AccordionBody>
-        </Accordion>
-        <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
-          <AccordionHeader onClick={() => handleOpen(3)}>
-            Reviews
-          </AccordionHeader>
-          <AccordionBody>
-            {reviews.map((review, index) => (
-              <Review key={index} {...review} />
-            ))}
-          </AccordionBody>
-        </Accordion>
-      </>
-    );
+  ];
+  const [open, setOpen] = React.useState(0);
+
+  const handleOpen = (value) => setOpen(open === value ? 0 : value);
+
+  return (
+    <>
+      <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
+        <AccordionHeader onClick={() => handleOpen(1)}>Can I get a size chart for the "Summer Breeze Maxi Dress"?</AccordionHeader>
+        <AccordionBody>
+          Absolutely! Our "Summer Breeze Maxi Dress" follows standard sizing. You can find the detailed size chart linked just below the product description. Please measure yourself and refer to the chart to ensure the perfect fit. If you have any issues or further questions, feel free to reach out to our customer support.
+        </AccordionBody>
+      </Accordion>
+      <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
+        <AccordionHeader onClick={() => handleOpen(2)}>
+          Is the "Classic Denim Jacket" true to its color in the pictures?
+        </AccordionHeader>
+        <AccordionBody>
+          Great question! We strive to display the most accurate color representation in our product photos. However, please note that the actual color might slightly vary due to monitor settings and lighting conditions when the photo was taken. If you're not satisfied with the color upon receiving the jacket, our return policy makes it easy for you to send it back.
+        </AccordionBody>
+      </Accordion>
+      <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
+        <AccordionHeader onClick={() => handleOpen(3)}>
+          Reviews
+        </AccordionHeader>
+        <AccordionBody>
+          {reviews.map((review, index) => (
+            <Review key={index} {...review} />
+          ))}
+        </AccordionBody>
+      </Accordion>
+    </>
+  );
 }
 
 export default AccordionTemp

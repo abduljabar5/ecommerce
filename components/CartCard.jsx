@@ -5,7 +5,7 @@ import { useAppContext } from '@utils/appProvider';
 import Checkout from './Checkout';
 import EmptyCart from './EmptyCart';
 function CartCard() {
-    const { cartItemCount, addToCart, notificationCount, addNotification } = useAppContext();
+    const { cartItemCount } = useAppContext();
     const [CartItems, setCartItems] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [quantity, setQuantity] = useState({});
@@ -92,61 +92,60 @@ function CartCard() {
                 <div>Loading...</div>
             ) : (
                 <div>
-                    {CartItems.length === 0 ? (<div><EmptyCart/></div>) : (<>
-                    {[...CartItems].reverse().map((item, index) => (
-                        <div key={index} className="flex flex-col lg:flex-row xl:flex-row md:flex-row gap-4 py-4 my-4">
-                            <div className="lg:w-1/3 md:w-1/3 xl:w-1/3 h-44">
-                                <img
-                                    src={item.image}
-                                    alt={item.name}
-                                    className="w-full h-full object-center object-cover rounded-lg" />
-                            </div>
-                            <div className="md:pl-3 md:w-3/4 w-full my-4">
-                                <div className="flex items-center justify-between w-full pt-1">
-                                    <p className="text-base font-black leading-none text-gray-800">
-                                        {item.name}
-                                    </p>
-                                    <select value={quantity[item._id] || 1} onChange={(e) => handleQuantityChange(item._id, e.target.value)} className="py-2 px-1 border-none mr-6 focus:outline-none cursor-pointer">
-                                        <option value='1'>01</option>
-                                        <option value='2'>02</option>
-                                        <option value='3'>03</option>
-                                    </select>
+                    {CartItems.length === 0 ? (<div><EmptyCart /></div>) : (<>
+                        {[...CartItems].reverse().map((item, index) => (
+                            <div key={index} className="flex flex-col lg:flex-row xl:flex-row md:flex-row gap-4 py-4 my-4">
+                                <div className="lg:w-1/3 md:w-1/3 xl:w-1/3 h-44">
+                                    <img
+                                        src={item.image}
+                                        alt={item.name}
+                                        className="w-full h-full object-center object-cover rounded-lg" />
                                 </div>
-                                <p className="text-xs leading-3 text-gray-600 pt-2">
-                                    Size: {item.selectedSize}
-                                </p>
-                                <p className="text-xs leading-3 text-gray-600 py-2 flex items-center gap-2">
-                                    Color:
-                                    <span
-                                        className="p-1 text-white rounded-full w-4 h-4 inline-block my-auto"
-                                        style={{ backgroundColor: item.selectedColor }}
-                                    >
-                                    </span>
-                                </p>
-
-                                <div className="flex items-center justify-between pt-5 pr-6">
-                                    <div className="flex items-center">
-                                        <button onClick={() => { handleDelete(item._id); }} className="text-xs leading-3 text-red-500 p-0 cursor-pointer underline">
-                                            Remove
-                                        </button>
+                                <div className="md:pl-3 md:w-3/4 w-full my-4">
+                                    <div className="flex items-center justify-between w-full pt-1">
+                                        <p className="text-base font-black leading-none text-gray-800">
+                                            {item.name}
+                                        </p>
+                                        <select value={quantity[item._id] || 1} onChange={(e) => handleQuantityChange(item._id, e.target.value)} className="py-2 px-1 border-none mr-6 focus:outline-none cursor-pointer">
+                                            <option value='1'>01</option>
+                                            <option value='2'>02</option>
+                                            <option value='3'>03</option>
+                                        </select>
                                     </div>
-                                    <p className="text-base font-black leading-none text-gray-800">
-                                        ${item.discountedPrice
-                                            ? (quantity[item._id] || 1) * item.discountedPrice
-                                            : (quantity[item._id] || 1) * item.price}
+                                    <p className="text-xs leading-3 text-gray-600 pt-2">
+                                        Size: {item.selectedSize}
+                                    </p>
+                                    <p className="text-xs leading-3 text-gray-600 py-2 flex items-center gap-2">
+                                        Color:
+                                        <span
+                                            className="p-1 text-white rounded-full w-4 h-4 inline-block my-auto"
+                                            style={{ backgroundColor: item.selectedColor }}
+                                        >
+                                        </span>
                                     </p>
 
-                                </div>
-                            </div>
+                                    <div className="flex items-center justify-between pt-5 pr-6">
+                                        <div className="flex items-center">
+                                            <button onClick={() => { handleDelete(item._id); }} className="text-xs leading-3 text-red-500 p-0 cursor-pointer underline">
+                                                Remove
+                                            </button>
+                                        </div>
+                                        <p className="text-base font-black leading-none text-gray-800">
+                                            ${item.discountedPrice
+                                                ? (quantity[item._id] || 1) * item.discountedPrice
+                                                : (quantity[item._id] || 1) * item.price}
+                                        </p>
 
-                        </div>
-                    ))} </>)}
+                                    </div>
+                                </div>
+
+                            </div>
+                        ))} </>)}
                 </div>
             )}
 
 
         </div><div className='flex flex-row justify-end gap-4 items-center mx-4'>
-                {/* <p>Subtotal: ${total}</p> */}
 
                 <Checkout total={total} items={CartItems} quantity={quantity} />
 
