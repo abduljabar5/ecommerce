@@ -80,7 +80,7 @@ export default function MembersTable() {
     return (
         <Card className="w-full h-full mt-4">
             {loading ? <div>Loading</div> :
-                <><CardHeader floated={false} shadow={false} className="rounded-none">
+                <><CardHeader floated={false} shadow={false} className="rounded-none mb-8">
                     <div className="mb-8 flex items-center justify-between gap-8">
                         <div>
                             <Typography variant="h5" color="blue-gray">
@@ -115,8 +115,8 @@ export default function MembersTable() {
                                 icon={<MagnifyingGlassIcon className="h-5 w-5" />} />
                         </div>
                     </div>
-                </CardHeader><CardBody className="overflow-scroll px-0">
-                        <table className="mt-4 w-full min-w-max table-auto text-left">
+                </CardHeader><CardBody className="overflow-scroll h-72 px-0">
+                        <table className="w-full min-w-max table-auto text-left">
                             <thead>
                                 <tr>
                                     {TABLE_HEAD.map((head) => (
@@ -214,19 +214,7 @@ export default function MembersTable() {
                                 )}
                             </tbody>
                         </table>
-                    </CardBody><CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-                        <Typography variant="small" color="blue-gray" className="font-normal">
-                            Page 1 of 10
-                        </Typography>
-                        <div className="flex gap-2">
-                            <Button variant="outlined" size="sm">
-                                Previous
-                            </Button>
-                            <Button variant="outlined" size="sm">
-                                Next
-                            </Button>
-                        </div>
-                    </CardFooter></>
+                    </CardBody></>
             }
 
         </Card>

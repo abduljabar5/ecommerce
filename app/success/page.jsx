@@ -6,7 +6,6 @@ const page = () => {
     const handleData = async () => {
         try {
             const Data = await getCartItems();
-            console.log("🚀 ~ file: page.jsx:8 ~ handleData ~ Data:", Data)
             
             const response = await fetch('/api/order/new',{
                 method: 'POST',

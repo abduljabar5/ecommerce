@@ -72,7 +72,7 @@ const SellPageProductCard = ({ product }) => {
                     className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 text-xs px-2 py-2"
                     onClick={() => handleOpen(true)}
                 >
-                    Add to Cart
+                    View item
                 </Button>
             </CardFooter>
             <FormModal product={product} discountedPrice={discountedPrice} handleOpen={handleOpen} open={open} />

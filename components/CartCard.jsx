@@ -14,11 +14,32 @@ function CartCard() {
     const fetchCartItems = async () => {
         try {
             const items = await getCartItems();
-            setCartItems(items);
+            if (!items.discountedPrice) {
+            // Assuming items is an array of item objects
+            const updatedItems = items.map(item => {
+                if (!item.discountedPrice) {
+                    const newPrice =
+                        item.discount > 0 ?
+                        (item.price - (item.price * item.discount / 100)).toFixed(2) :
+                        item.price; // Keep the original price if no discount
+                    
+                    return { ...item, discountedPrice: newPrice };
+                }
+                return item;
+            });
+        
+            console.log("🚀 ~ file: CartCard.jsx:23 ~ fetchCartItems ~ updatedItems:", updatedItems);
+            setCartItems(updatedItems);
+             } else {
+                setCartItems(items)
+             }
+             
             setIsLoading(false);
+       
         } catch (error) {
             console.error('Error fetching cart items:', error);
         }
+        
     };
     const handleCartChange = () => {
         fetchCartItems();
@@ -97,7 +118,7 @@ function CartCard() {
                             <div key={index} className="flex flex-col lg:flex-row xl:flex-row md:flex-row gap-4 py-4 my-4">
                                 <div className="lg:w-1/3 md:w-1/3 xl:w-1/3 h-44">
                                     <img
-                                        src={item.image}
+                                        src={item?.image || item?.images[0]}
                                         alt={item.name}
                                         className="w-full h-full object-center object-cover rounded-lg" />
                                 </div>

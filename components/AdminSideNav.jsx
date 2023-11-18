@@ -28,7 +28,7 @@ import {
     ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import {AiOutlineClose, AiOutlineMenuUnfold} from 'react-icons/ai'
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 export default function SidebarWithLogo() {
     const [open, setOpen] = React.useState(0);
     const [openAlert, setOpenAlert] = React.useState(true);
@@ -44,7 +44,7 @@ export default function SidebarWithLogo() {
     }
     return (
         <> <div className={`absolute z-40 top-6 left-0 h-full w-64 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static`}>
-            <Card className="h-[92.5vh] w-full p-4 mt-16 shadow-xl bg-gray-900 shadow-blue-gray-900/5 lg:mt-0">
+            <Card className="h-[88vh] w-full p-4 mt-16 shadow-xl bg-gray-900 shadow-blue-gray-900/5 lg:mt-0">
                 <div className="mb-2 flex items-center gap-4 p-4">
                     <img src={session?.user?.image} alt="brand" className="h-12 w-12 rounded-full" />
                     <Typography variant="h5" className="text-gray-300">
@@ -145,7 +145,7 @@ export default function SidebarWithLogo() {
                             <Chip value="14" size="sm" variant="ghost" color="white" className="rounded-full bg-gray-300" />
                         </ListItemSuffix>
                     </ListItem>
-                    <ListItem className="hover:bg-gray-300 hover:text-black text-gray-300">
+                    <ListItem className="hover:bg-gray-300 hover:text-black text-gray-300" href='/profile'>
                         <ListItemPrefix className="">
                             <UserCircleIcon className="h-5 w-5 " />
                         </ListItemPrefix>
@@ -157,7 +157,7 @@ export default function SidebarWithLogo() {
                         </ListItemPrefix>
                         Settings
                     </ListItem>
-                    <ListItem className="hover:bg-gray-300 hover:text-red-600 text-gray-300">
+                    <ListItem className="hover:bg-gray-300 hover:text-red-600 text-gray-300" onClick={() => {signOut()}}>
                         <ListItemPrefix>
                             <PowerIcon className="h-5 w-5" />
                         </ListItemPrefix>

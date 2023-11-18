@@ -4,9 +4,7 @@ import { connectToDB } from "@utils/database";
 export const GET = async (request, { params }) => {
     try {
         await connectToDB()
-        console.log('good', params.id);
         const orders = await Order.find({ 'Data.creator': params.id }).populate('Data.creator');
-        console.log("🚀 ~ file: route.js:9 ~ GET ~ orders:", orders)
         if (orders.length > 0){
              return new Response(JSON.stringify(orders), { status: 200 })
         } 

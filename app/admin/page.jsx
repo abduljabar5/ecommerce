@@ -3,7 +3,7 @@ import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import UserList from '@components/UserList';
 function AdminDashboard() {
     return (
-        <div className="w-10/12 max-h-[92.5vh] overflow-y-auto mx-auto lg:mx-4">
+        <div className="w-10/12 max-h-[92.5vh] overflow-y-hidden mx-auto lg:mx-4">
             <div className="grid grid-cols-1 bg-img rounded-2xl md:grid-cols-3 gap-6 mx-auto my-auto py-6">
                 <div class="frosted shadow-lg hover:shadow-lg rounded-2xl p-4">
                     <div class="flex items-center">

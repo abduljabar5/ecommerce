@@ -14,6 +14,7 @@ const Product = ({ params }) => {
   const [selectedColor, setSelectedColor] = useState('');
   const [productData, setProductData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [discountedPrice, setDiscountedPrice] = useState(true);
   const [activeImage, setActiveImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
@@ -28,7 +29,11 @@ const Product = ({ params }) => {
       setProductData(data);
       setActiveImage(data.images[0])
       setIsLoading(false);
-
+      const math =
+        data.discount > 0 ?
+            (data.price - (data.price * data.discount / 100)).toFixed(2) :
+            null;
+            setDiscountedPrice(math)
     } catch (error) {
       console.error('Fetch Error: ', error);
     }
@@ -99,7 +104,7 @@ const handleAddToCart = async () => {
                 <div className="flex">
                     {productData.discount ? (
                         <><Typography variant="h6" color="blue-gray" className="font-lg text-lg mr-2 mb-4">
-                            ${productData.discount || productData.price}
+                            ${discountedPrice}
                         </Typography><Typography variant="h6" color="blue-gray" className="font-medium line-through mb-4">
                                 ${productData.price}
                             </Typography></>

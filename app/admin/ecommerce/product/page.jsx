@@ -22,7 +22,7 @@ function AdminProducts() {
   const handleOpen = () => setOpen(!open);
 
   return (
-    <div className="flex flex-col w-full max-h-[92.5vh]">
+    <div className="flex flex-col w-full max-h-[88vh]">
       <FormModal handleOpen={handleOpen} open={open} />
       <h1 className="text-3xl font-bold mt-10 mb-6">Products</h1>
 

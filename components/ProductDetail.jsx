@@ -43,6 +43,7 @@ const ProductDetail = (promps) => {
             selectedColor,
             quantity,
             image,
+            images,
             category,
         };
 

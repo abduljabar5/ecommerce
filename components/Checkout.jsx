@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import LogInPrompt from './LogInPrompt';
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_TEST_PUBLIC_KEY);
 
-const Checkout = ({ total }) => {
+const Checkout = ({ total, items }) => {
     const { data: userSession, status } = useSession();
     const [isLoading, setIsLoading] = useState(false);
     const handleCheckout = async () => {
@@ -17,7 +17,7 @@ const Checkout = ({ total }) => {
         try {
             const email = userSession?.user?.email
             console.log("🚀 ~ file: Checkout.jsx:18 ~ handleCheckout ~ email:", email)
-            const items = await getCartItems();
+            // const items = await getCartItems();
             const stripe = await stripePromise;
             if (!stripe) throw new Error("Stripe has not loaded properly.");
             const response = await fetch('/api/checkout_sessions', {

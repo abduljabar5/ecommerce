@@ -29,12 +29,17 @@ const ProductFormSkel = ({ handleOpen }) => {
   };
 
   const handleSubmitOne = (e) => {
+    const discountedPrice =
+    Number(salePrice) > 0 ?
+            (Number(price) - (Number(price) * Number(salePrice) / 100)).toFixed(2) :
+            null;
     e.preventDefault();
     setProducts({
       userId: session.user.id,
       category,
       productName,
       price: Number(price),
+      discountedPrice,
       imageUrls,
       description,
       salePrice: Number(salePrice)
