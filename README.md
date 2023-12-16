@@ -2,7 +2,7 @@
 
 ## Summary
 
-This E-commerce platform is a full-stack solution aimed at providing an unparalleled online shopping experience. Developed with Next.js, React, and MongoDB, it boasts a comprehensive storefront along with an admin page. The platform is designed to cater to both vendors and customers, emphasizing intuitive design and robust functionality.
+This E-commerce platform is a full-stack project designed to provide a seamless online shopping experience. Developed using Next.js, React, and MongoDB, it features a comprehensive storefront and an admin page. The admin access is secured with a password (0000), allowing administrators to manage products and orders efficiently. Tailored for both vendors and customers, this platform stands out with its intuitive design and robust functionality.
 
 ## Challenge Faced
 A major challenge in this project was the integration of admin functionalities with the store. The initial goal was to enable subscribed users to post products. However, we adopted a password-protected admin system to ensure secure and efficient management of the store's inventory and orders.
